@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-parcelize'
 }
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'kotlin-kapt'
@@ -67,9 +68,9 @@ dependencies {
 
 
 
-
-
-
+    def coroutines_version = "1.5.2"
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version")
 
 
 
@@ -94,6 +95,7 @@ dependencies {
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
+    implementation("androidx.room:room-ktx:$room_version")
     implementation "androidx.room:room-paging:2.4.0-alpha04"
 
 
