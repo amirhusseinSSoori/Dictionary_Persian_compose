@@ -15,6 +15,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.items
 import com.amirhusseinsoori.mvi_persian_dictinary.common.utilFont
 import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.Word
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.main.MainViewModel
@@ -31,19 +33,14 @@ class MainActivity : ComponentActivity() {
         setContent {
             val viewModel: MainViewModel = hiltViewModel()
             Mvi_Persian_DictinaryTheme {
-                // A surface container using the 'background' color from the theme
-                viewModel._state.collectAsState().let {
-                    it.value.let { data ->
-                        LazyColumn(
-                            modifier = Modifier
-                                .fillMaxSize()
-                        ) {
-                            items(data) {
-                                Greeting(it)
-                            }
-                        }
+                val list =viewModel.allMessage().collectAsLazyPagingItems()
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                ) {
+                    items(list) {
+                        Greeting(it!!)
                     }
-
                 }
 
             }
