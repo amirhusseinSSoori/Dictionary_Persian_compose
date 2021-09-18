@@ -106,4 +106,9 @@ dependencies {
     def paging_version = "3.0.1"
     implementation("androidx.paging:paging-runtime-ktx:$paging_version")
     implementation "androidx.paging:paging-compose:1.0.0-alpha12"
+
+    def accompanist_version = "0.18.0"
+    implementation "com.google.accompanist:accompanist-insets:$accompanist_version"
+    implementation "com.google.accompanist:accompanist-systemuicontroller:$accompanist_version"
+    implementation "com.google.accompanist:accompanist-flowlayout:$accompanist_version"
 }

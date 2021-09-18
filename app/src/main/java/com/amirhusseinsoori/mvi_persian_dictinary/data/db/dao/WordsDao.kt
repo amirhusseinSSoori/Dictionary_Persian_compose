@@ -9,7 +9,10 @@ import androidx.paging.PagingSource
 @Dao
 interface WordsDao {
     @Query("SELECT * FROM dictionary")
-    fun getAllWord(): PagingSource<Int, Word>
+    fun getAllWords(): PagingSource<Int, Word>
+
+    @Query("Select * from dictionary where word like '%' || :msg || '%'")
+     fun searchAllWords(msg:String): PagingSource<Int, Word>
 
 
 }

@@ -17,33 +17,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(val rep: WordRepository) :ViewModel() {
-
-
-    var state= MutableStateFlow<List<Word>>(emptyList())
-    val _state = state.asStateFlow()
-
-
-    init {
-//        subscriber()
-    }
-
-
-
     fun allMessage(): Flow<PagingData<Word>> {
         return rep.allWords()
     }
-
-
-//    fun subscriber(){
-//        viewModelScope.launch {
-//            rep.allWords().collect {
-//                state.value = it
-//            }
-//        }
-//    }
-
-
-
-
-
+    fun searchMessage(value:String): Flow<PagingData<Word>> {
+        return rep.searchWords(value)
+    }
 }
