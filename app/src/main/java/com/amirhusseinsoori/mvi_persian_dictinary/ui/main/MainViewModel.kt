@@ -1,6 +1,5 @@
 package com.amirhusseinsoori.mvi_persian_dictinary.ui.main
 
-import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.Word
@@ -18,7 +17,7 @@ class MainViewModel @Inject constructor(val rep: WordRepository) :ViewModel() {
 
 
     var state= MutableStateFlow<List<Word>>(emptyList())
-    val _state=state.asStateFlow()
+    val _state = state.asStateFlow()
 
 
     init {

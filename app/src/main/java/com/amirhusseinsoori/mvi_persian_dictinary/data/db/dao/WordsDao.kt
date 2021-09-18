@@ -8,6 +8,6 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface WordsDao {
-    @Query("SELECT * FROM word_tb")
+    @Query("SELECT * FROM dictionary")
     fun getAllWord(): Flow<List<Word>>
 }
