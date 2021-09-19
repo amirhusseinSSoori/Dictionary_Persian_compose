@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Color
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 private val DarkColorPalette = DictionaryColors(
-    brand = Shadow1,
+    brand = Rose0,
     brandSecondary = Ocean2,
     uiBackground = Neutral8,
     uiBorder = Neutral3,
@@ -35,7 +35,7 @@ private val DarkColorPalette = DictionaryColors(
 )
 
 private val LightColorPalette = DictionaryColors(
-    brand = Shadow5,
+    brand = Ocean11,
     brandSecondary = Ocean3,
     uiBackground = Neutral0,
     uiBorder = Neutral4,
@@ -59,7 +59,7 @@ private val LightColorPalette = DictionaryColors(
     isDark = false
 )
 
-private val LocalJetsnackColors = staticCompositionLocalOf<DictionaryColors> {
+private val LocalDictionaryColors = staticCompositionLocalOf<DictionaryColors> {
     error("No JetsnackColorPalette provided")
 }
 @Composable
@@ -96,13 +96,13 @@ fun ProvideDicColors(
         colors.copy()
     }
     colorPalette.update(colors)
-    CompositionLocalProvider(LocalJetsnackColors provides colorPalette, content = content)
+    CompositionLocalProvider(LocalDictionaryColors provides colorPalette, content = content)
 }
 
 object DicTheme {
     val colors: DictionaryColors
         @Composable
-        get() = LocalJetsnackColors.current
+        get() = LocalDictionaryColors.current
 }
 
 @Stable

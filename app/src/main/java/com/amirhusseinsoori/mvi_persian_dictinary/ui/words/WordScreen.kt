@@ -1,5 +1,6 @@
-package com.amirhusseinsoori.mvi_persian_dictinary.ui.main
+package com.amirhusseinsoori.mvi_persian_dictinary.ui.words
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.Text
@@ -19,43 +20,56 @@ import com.amirhusseinsoori.mvi_persian_dictinary.ui.component.DicCard
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.DicTheme
 
 @Composable
-fun WordScreen(){
+fun WordScreen(navigateToDetailsScreen: (id: String) -> Unit) {
     DicTheme {
         val viewModel: MainViewModel = hiltViewModel()
-        var search by remember { mutableStateOf("") }
-        val list = viewModel.searchMessage(search).collectAsLazyPagingItems()
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
-            SearchBar(
-                query = search,
-                onQueryChange = { search =it},
-                searchFocused = true,
-                onSearchFocusChange = { },
-                onClearQuery = { },
-                searching = false
-            )
-            LazyColumn(
+//        viewModel.searchMessage("value")
+        viewModel._stateWords.collectAsState().let { data ->
+            val paging = data.value.paging.collectAsLazyPagingItems()
+            var value by remember { data.value.search }
+
+            Column(
                 modifier = Modifier
                     .fillMaxSize()
             ) {
-                items(list) {
-                    WordItem(it!!)
+                SearchBar(
+                    query = value,
+                    onQueryChange = {
+                        value = it
+                        viewModel.searchMessage(value)
+                    },
+                    searchFocused = true,
+                    onSearchFocusChange = { },
+                    onClearQuery = { },
+                    searching = false
+                )
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize()
+                ) {
+                    items(paging) {
+                        WordItem(it!!, navigateToDetailsScreen)
+                    }
                 }
             }
         }
+
     }
 }
 
 @Composable
-fun WordItem(data: Word) {
+fun WordItem(data: Word, navigateToDetailsScreen: (id: String) -> Unit) {
     DicCard {
         Column(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable {
+                    navigateToDetailsScreen(data.id.toString())
+                },
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
+            horizontalAlignment = Alignment.CenterHorizontally,
+
+            ) {
             Text(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -66,4 +80,5 @@ fun WordItem(data: Word) {
                 textAlign = TextAlign.Start
             )
         }
-    } }
+    }
+}
