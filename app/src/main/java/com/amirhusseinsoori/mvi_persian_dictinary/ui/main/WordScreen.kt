@@ -66,7 +66,4 @@ fun WordItem(data: Word) {
                 textAlign = TextAlign.Start
             )
         }
-    }
-
-
-}
+    } }

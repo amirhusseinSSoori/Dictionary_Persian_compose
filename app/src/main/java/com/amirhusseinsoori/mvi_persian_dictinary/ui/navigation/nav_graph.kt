@@ -70,7 +70,6 @@ fun InitialNavGraph(navController: NavHostController){
 
         }
 
-
         WordScreen(navController)
     }
 
