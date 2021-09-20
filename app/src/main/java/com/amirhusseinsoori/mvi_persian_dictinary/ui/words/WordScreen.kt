@@ -20,7 +20,7 @@ import com.amirhusseinsoori.mvi_persian_dictinary.ui.component.DicCard
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.DicTheme
 
 @Composable
-fun WordScreen(navigateToDetailsScreen: (id: String) -> Unit) {
+fun WordScreen(navigateToDetailsScreen: (id: Word) -> Unit) {
     DicTheme {
         val viewModel: MainViewModel = hiltViewModel()
         viewModel._stateWords.collectAsState().let { data ->
@@ -57,13 +57,15 @@ fun WordScreen(navigateToDetailsScreen: (id: String) -> Unit) {
 }
 
 @Composable
-fun WordItem(data: Word, navigateToDetailsScreen: (id: String) -> Unit) {
+fun WordItem(data: Word, navigateToDetailsScreen: (id: Word) -> Unit) {
+
+
     DicCard {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable {
-                    navigateToDetailsScreen(data.mean)
+                    navigateToDetailsScreen(data)
                 },
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,

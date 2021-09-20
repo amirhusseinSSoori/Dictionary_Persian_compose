@@ -1,6 +1,8 @@
 package com.amirhusseinsoori.mvi_persian_dictinary
 
+import android.media.AudioManager
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -21,15 +23,11 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
 
-
     @ExperimentalFoundationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContent {
-
-
-                    InitialNavGraph()
+            InitialNavGraph()
         }
     }
 }

@@ -5,25 +5,19 @@ import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
+import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.Word
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.details.Details
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.intro.Intro
-import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.DicTheme
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.words.WordScreen
 
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import com.google.gson.Gson
 
 
 @ExperimentalComposeUiApi
@@ -105,7 +99,7 @@ fun NavGraphBuilder.WordNavigation(
         },
     ) {
         WordScreen(navigateToDetailsScreen={
-            navController.navigate("${NavRoute.DetailsRoute.route}/$it")
+            navController.navigate("${NavRoute.DetailsRoute.route}/${Gson().toJson(it)}")
         })
     }
 }
@@ -137,6 +131,9 @@ fun NavGraphBuilder.DetailNavigation(
             ) + fadeOut(animationSpec = tween(300))
         }
     ) {
-        Details("${it.arguments?.get("details")}")
+        it.arguments?.getString("details").let {json->
+            Details(Gson().fromJson(json,Word::class.java),)
+        }
+
     }
 }
