@@ -18,16 +18,13 @@ class MainViewModel @Inject constructor(val rep: WordRepository) : ViewModel() {
     val  stateWords= MutableStateFlow(StateSearch())
     val _stateWords= stateWords.asStateFlow()
 
-    init {
-        searchMessage("")
-    }
-
-
-
 
 
      fun searchMessage(value :String) {
-         stateWords.value = stateWords.value.copy(paging = rep.searchWords(value))
+         if(value!=" ".trim()){
+             stateWords.value = stateWords.value.copy(paging = rep.searchWords(value))
+         }
+
     }
 
 

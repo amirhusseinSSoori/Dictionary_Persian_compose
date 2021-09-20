@@ -4,5 +4,6 @@
     <string name="label_search">Perform search</string>
     <string name="search_word">Search Words</string>
     <string name="intro">dictionary</string>
+    <string name="cancel">"بازگشت"</string>
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
 </resources>

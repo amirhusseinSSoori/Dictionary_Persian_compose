@@ -18,6 +18,8 @@ package com.amirhusseinsoori.mvi_persian_dictinary.ui
 
 
 import android.content.res.Configuration
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -42,15 +44,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.amirhusseinsoori.mvi_persian_dictinary.R
-import com.amirhusseinsoori.mvi_persian_dictinary.common.mirroringBackIcon
+import com.amirhusseinsoori.mvi_persian_dictinary.common.mirroringCancelIcon
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.component.DicSurface
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.DicTheme
 
 
+@ExperimentalAnimationApi
 @Composable
  fun SearchBar(
     query: String ,
@@ -59,6 +61,7 @@ import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.DicTheme
     onSearchFocusChange: (Boolean) -> Unit,
     onClearQuery: () -> Unit,
     searching: Boolean,
+    enableClose:Boolean,
     modifier: Modifier = Modifier
 ) {
     DicSurface(
@@ -81,13 +84,16 @@ import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.DicTheme
                     .wrapContentHeight()
             ) {
                 if (searchFocused) {
-                    IconButton(onClick = onClearQuery) {
-                        Icon(
-                            imageVector = mirroringBackIcon(),
-                            tint = DicTheme.colors.iconPrimary,
-                            contentDescription = stringResource(R.string.label_back)
-                        )
+                    AnimatedVisibility(visible = enableClose) {
+                        IconButton(onClick = onClearQuery) {
+                            Icon(
+                                imageVector = mirroringCancelIcon(),
+                                tint = DicTheme.colors.iconPrimary,
+                                contentDescription = stringResource(R.string.label_back)
+                            )
+                        }
                     }
+
                 }
                 BasicTextField(
                     value = query,
@@ -136,6 +142,7 @@ private fun SearchHint() {
     }
 }
 
+@ExperimentalAnimationApi
 @Preview("default")
 @Preview("dark theme", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Preview("large font", fontScale = 2f)
@@ -149,7 +156,8 @@ private fun SearchBarPreview() {
                 searchFocused = false,
                 onSearchFocusChange = { },
                 onClearQuery = { },
-                searching = false
+                searching = false,
+                enableClose = false
             )
         }
     }

@@ -1,5 +1,6 @@
 package com.amirhusseinsoori.mvi_persian_dictinary.ui.words
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -20,6 +21,7 @@ import com.amirhusseinsoori.mvi_persian_dictinary.ui.SearchBar
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.component.DicCard
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.*
 
+@ExperimentalAnimationApi
 @Composable
 fun WordScreen(navigateToDetailsScreen: (id: Word) -> Unit) {
     DicTheme {
@@ -27,7 +29,6 @@ fun WordScreen(navigateToDetailsScreen: (id: Word) -> Unit) {
         viewModel._stateWords.collectAsState().let { data ->
             val paging = data.value.paging.collectAsLazyPagingItems()
             var value by remember { data.value.search }
-
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -40,22 +41,30 @@ fun WordScreen(navigateToDetailsScreen: (id: Word) -> Unit) {
                     },
                     searchFocused = true,
                     onSearchFocusChange = { },
-                    onClearQuery = { },
-                    searching = false
+                    onClearQuery = {
+                            value = ""
+                    },
+                    searching = false,
+                    enableClose = value != ""
+
                 )
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxSize()
                 ) {
-                    items(paging) {
-                        WordItem(it!!, navigateToDetailsScreen)
+                    if(value != ""){
+                        items(paging) {
+                            WordItem(it!!, navigateToDetailsScreen)
+                        }
                     }
+
                 }
             }
         }
 
     }
 }
+
 
 @Composable
 fun WordItem(data: Word, navigateToDetailsScreen: (id: Word) -> Unit) {
@@ -75,7 +84,7 @@ fun WordItem(data: Word, navigateToDetailsScreen: (id: Word) -> Unit) {
             Text(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(30.dp)
+
                     .padding(start = 10.dp, top = 1.dp),
                 text = data.word, fontFamily = utilFont,
                 fontWeight = FontWeight.Medium,
@@ -84,7 +93,7 @@ fun WordItem(data: Word, navigateToDetailsScreen: (id: Word) -> Unit) {
             Text(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(30.dp)
+
                     .padding(end = 10.dp, top = 0.dp),
                 text = data.mean, fontFamily = utilFont, color = Neutral5,
                 fontWeight = FontWeight.Medium,

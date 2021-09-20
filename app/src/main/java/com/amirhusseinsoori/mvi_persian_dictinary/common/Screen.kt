@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.ArrowForward
 import androidx.compose.runtime.Composable
@@ -60,6 +61,6 @@ fun Loader(anim:Int) {
 fun mirroringIcon(ltrIcon: ImageVector, rtlIcon: ImageVector): ImageVector =
     if (LocalLayoutDirection.current == LayoutDirection.Ltr) ltrIcon else rtlIcon
 @Composable
-fun mirroringBackIcon() = mirroringIcon(
-    ltrIcon = Icons.Outlined.ArrowBack, rtlIcon = Icons.Outlined.ArrowForward
+fun mirroringCancelIcon() = mirroringIcon(
+    ltrIcon = Icons.Default.Close, rtlIcon = Icons.Outlined.ArrowForward
 )
