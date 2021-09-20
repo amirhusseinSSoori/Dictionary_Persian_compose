@@ -23,7 +23,6 @@ import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.DicTheme
 fun WordScreen(navigateToDetailsScreen: (id: String) -> Unit) {
     DicTheme {
         val viewModel: MainViewModel = hiltViewModel()
-//        viewModel.searchMessage("value")
         viewModel._stateWords.collectAsState().let { data ->
             val paging = data.value.paging.collectAsLazyPagingItems()
             var value by remember { data.value.search }
@@ -64,7 +63,7 @@ fun WordItem(data: Word, navigateToDetailsScreen: (id: String) -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable {
-                    navigateToDetailsScreen(data.id.toString())
+                    navigateToDetailsScreen(data.mean)
                 },
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,

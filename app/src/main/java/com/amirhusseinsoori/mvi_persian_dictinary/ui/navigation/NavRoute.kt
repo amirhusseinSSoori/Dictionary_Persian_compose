@@ -9,7 +9,7 @@ sealed class NavRoute(var route: String,val arguments: List<NamedNavArgument>) {
     object WordRoute : NavRoute("Word_screen",emptyList())
     object DetailsRoute : NavRoute("Details_screen",
         arguments = listOf(navArgument("details") {
-            type = NavType.IntType
+            type = NavType.StringType
         })
     )
 }

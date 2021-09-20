@@ -137,7 +137,6 @@ fun NavGraphBuilder.DetailNavigation(
             ) + fadeOut(animationSpec = tween(300))
         }
     ) {
-        val id = "${it.arguments?.get("details")}".toInt()
-       Details()
+        Details("${it.arguments?.get("details")}")
     }
 }

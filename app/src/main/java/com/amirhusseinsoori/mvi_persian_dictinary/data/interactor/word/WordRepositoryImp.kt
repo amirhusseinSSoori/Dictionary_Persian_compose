@@ -12,7 +12,7 @@ class WordRepositoryImp @Inject constructor(val local: WordsDao):WordRepository 
     override fun searchWords(value: String): Flow<PagingData<Word>> = Pager(
         PagingConfig(
             pageSize = 100, maxSize = 1000,
-            enablePlaceholders = true
+            enablePlaceholders = false
         )
     ) {
         local.searchAllWords(value)
