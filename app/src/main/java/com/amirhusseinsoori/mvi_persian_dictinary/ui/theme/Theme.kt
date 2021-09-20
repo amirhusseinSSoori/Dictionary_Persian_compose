@@ -35,7 +35,7 @@ private val DarkColorPalette = DictionaryColors(
 )
 
 private val LightColorPalette = DictionaryColors(
-    brand = Ocean11,
+    brand = Neutral7,
     brandSecondary = Ocean3,
     uiBackground = Neutral0,
     uiBorder = Neutral4,

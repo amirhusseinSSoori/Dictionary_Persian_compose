@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
@@ -17,7 +18,7 @@ import com.amirhusseinsoori.mvi_persian_dictinary.common.utilFont
 import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.Word
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.SearchBar
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.component.DicCard
-import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.DicTheme
+import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.*
 
 @Composable
 fun WordScreen(navigateToDetailsScreen: (id: Word) -> Unit) {
@@ -74,11 +75,21 @@ fun WordItem(data: Word, navigateToDetailsScreen: (id: Word) -> Unit) {
             Text(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(45.dp)
-                    .padding(start = 10.dp, top = 10.dp),
+                    .height(30.dp)
+                    .padding(start = 10.dp, top = 1.dp),
                 text = data.word, fontFamily = utilFont,
                 fontWeight = FontWeight.Medium,
                 textAlign = TextAlign.Start
+            )
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(30.dp)
+                    .padding(end = 10.dp, top = 0.dp),
+                text = data.mean, fontFamily = utilFont, color = Neutral5,
+                fontWeight = FontWeight.Medium,
+                textAlign = TextAlign.End,
+                fontSize = 12.sp
             )
         }
     }
