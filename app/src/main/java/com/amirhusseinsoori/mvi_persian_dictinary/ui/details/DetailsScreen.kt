@@ -8,7 +8,6 @@ import android.media.AudioManager
 import android.os.Build
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
-import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -22,27 +21,23 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.amirhusseinsoori.mvi_persian_dictinary.R
 import com.amirhusseinsoori.mvi_persian_dictinary.common.utilFont
-import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.Word
+import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.EnglishWord
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.component.DicCard
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.DicTheme
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.Neutral2
-import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.Neutral3
-import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.Neutral4
 import java.util.*
 
 
 @Composable
-fun Details(word: Word) {
+fun Details(word: EnglishWord) {
     val ctx = LocalContext.current
 
 
@@ -189,7 +184,7 @@ fun initialSpeech(
     speech: TextToSpeech,
     audio: AudioManager,
     ctx: Context,
-    word: Word,
+    word: EnglishWord,
     local: Locale
 ) {
     speech.language = local

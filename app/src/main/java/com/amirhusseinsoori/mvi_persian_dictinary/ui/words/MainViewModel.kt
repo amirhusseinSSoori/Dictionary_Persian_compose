@@ -2,13 +2,13 @@ package com.amirhusseinsoori.mvi_persian_dictinary.ui.words
 
 import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
-import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.Word
+import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.EnglishWord
+import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.PersianWord
+import com.amirhusseinsoori.mvi_persian_dictinary.data.db.relations.EnglishWithPersian
 import com.amirhusseinsoori.mvi_persian_dictinary.data.interactor.word.WordRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -36,7 +36,7 @@ class MainViewModel @Inject constructor(val rep: WordRepository) : ViewModel() {
 
 
     data class StateSearch(
-        var paging: Flow<PagingData<Word>> = emptyFlow(),
+        var paging: Flow<PagingData<EnglishWord>> = emptyFlow(),
         var search:MutableState<String> = mutableStateOf("")
 
     )

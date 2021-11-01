@@ -16,14 +16,16 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.amirhusseinsoori.mvi_persian_dictinary.common.utilFont
-import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.Word
+import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.EnglishWord
+import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.PersianWord
+import com.amirhusseinsoori.mvi_persian_dictinary.data.db.relations.EnglishWithPersian
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.SearchBar
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.component.DicCard
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.*
 
 @ExperimentalAnimationApi
 @Composable
-fun WordScreen(navigateToDetailsScreen: (id: Word) -> Unit) {
+fun WordScreen(navigateToDetailsScreen: (id: EnglishWord) -> Unit) {
     DicTheme {
         val viewModel: MainViewModel = hiltViewModel()
         viewModel._stateWords.collectAsState().let { data ->
@@ -54,7 +56,11 @@ fun WordScreen(navigateToDetailsScreen: (id: Word) -> Unit) {
                 ) {
                     if(value != ""){
                         items(paging) {
-                            WordItem(it!!, navigateToDetailsScreen)
+
+
+                                WordItem(it!!, navigateToDetailsScreen)
+
+
                         }
                     }
 
@@ -67,7 +73,7 @@ fun WordScreen(navigateToDetailsScreen: (id: Word) -> Unit) {
 
 
 @Composable
-fun WordItem(data: Word, navigateToDetailsScreen: (id: Word) -> Unit) {
+fun WordItem(data: EnglishWord, navigateToDetailsScreen: (id: EnglishWord) -> Unit) {
 
 
     DicCard {
@@ -86,14 +92,13 @@ fun WordItem(data: Word, navigateToDetailsScreen: (id: Word) -> Unit) {
                     .fillMaxWidth()
 
                     .padding(start = 10.dp, top = 1.dp),
-                text = data.englishWord, fontFamily = utilFont,
+                text = data.englishWord ,fontFamily = utilFont,
                 fontWeight = FontWeight.Medium,
                 textAlign = TextAlign.Start
             )
             Text(
                 modifier = Modifier
                     .fillMaxWidth()
-
                     .padding(end = 10.dp, top = 0.dp),
                 text = data.englishWord, fontFamily = utilFont, color = Neutral5,
                 fontWeight = FontWeight.Medium,

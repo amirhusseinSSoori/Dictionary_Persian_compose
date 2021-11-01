@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Room
 import com.amirhusseinsoori.mvi_persian_dictinary.data.db.DictionaryDataBase
 import com.amirhusseinsoori.mvi_persian_dictinary.data.db.dao.WordsDao
-import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.Word
 import com.amirhusseinsoori.mvi_persian_dictinary.data.interactor.word.WordRepository
 import com.amirhusseinsoori.mvi_persian_dictinary.data.interactor.word.WordRepositoryImp
 import dagger.Module
