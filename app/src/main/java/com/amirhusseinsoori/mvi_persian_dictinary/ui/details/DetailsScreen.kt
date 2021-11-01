@@ -107,7 +107,7 @@ fun Details(word: Word) {
                     Text(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = 70.dp), text = word.word, fontFamily = utilFont,
+                            .padding(top = 70.dp), text = word.englishWord, fontFamily = utilFont,
                         fontWeight = FontWeight.Normal,
                         textAlign = TextAlign.Center,
                         fontSize = 40.sp
@@ -117,7 +117,7 @@ fun Details(word: Word) {
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 45.dp),
-                        text = word.mean,
+                        text = word.englishWord,
                         fontFamily = utilFont,
                         fontWeight = FontWeight.Medium,
                         textAlign = TextAlign.Center,
@@ -200,7 +200,7 @@ fun initialSpeech(
             .show()
     } else {
         //read word aloud if volume is not muted
-        val toSpeak: CharSequence = word.word
+        val toSpeak: CharSequence = word.englishWord
         speech!!.speak(
             toSpeak,
             TextToSpeech.QUEUE_FLUSH,

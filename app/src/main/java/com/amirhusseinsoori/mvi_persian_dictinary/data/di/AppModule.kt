@@ -29,10 +29,10 @@ object AppModule {
             .databaseBuilder(
                 context,
                 DictionaryDataBase::class.java,
-                "dic"
+                "dbEnglishWords"
             )
             .fallbackToDestructiveMigration()
-            .createFromAsset("dic")
+            .createFromAsset("dbEnglishWords")
             .build()
     }
 

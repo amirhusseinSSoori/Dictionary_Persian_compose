@@ -86,7 +86,7 @@ fun WordItem(data: Word, navigateToDetailsScreen: (id: Word) -> Unit) {
                     .fillMaxWidth()
 
                     .padding(start = 10.dp, top = 1.dp),
-                text = data.word, fontFamily = utilFont,
+                text = data.englishWord, fontFamily = utilFont,
                 fontWeight = FontWeight.Medium,
                 textAlign = TextAlign.Start
             )
@@ -95,7 +95,7 @@ fun WordItem(data: Word, navigateToDetailsScreen: (id: Word) -> Unit) {
                     .fillMaxWidth()
 
                     .padding(end = 10.dp, top = 0.dp),
-                text = data.mean, fontFamily = utilFont, color = Neutral5,
+                text = data.englishWord, fontFamily = utilFont, color = Neutral5,
                 fontWeight = FontWeight.Medium,
                 textAlign = TextAlign.End,
                 fontSize = 12.sp

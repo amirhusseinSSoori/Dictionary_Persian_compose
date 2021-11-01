@@ -9,12 +9,11 @@ import java.util.*
 
 
 @Parcelize
-@Entity(tableName = "dictionary")
+@Entity(tableName = "dbo_EnglishWords")
 data class Word constructor(
-    @PrimaryKey(autoGenerate = true) var id: Int = 0,
-    var word: String,
-    var mean: String,
-    var ara: String,
-    var fav: Int
+    @PrimaryKey(autoGenerate = true)
+    var idEnglishWord: Int,
+    var englishWord: String
+
 
 ) : Parcelable
