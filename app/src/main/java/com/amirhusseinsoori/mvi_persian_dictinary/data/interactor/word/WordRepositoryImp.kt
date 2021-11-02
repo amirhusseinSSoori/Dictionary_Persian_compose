@@ -2,31 +2,17 @@ package com.amirhusseinsoori.mvi_persian_dictinary.data.interactor.word
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import androidx.paging.PagingData
 import com.amirhusseinsoori.mvi_persian_dictinary.data.db.dao.WordsDao
-import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.English
-import com.amirhusseinsoori.mvi_persian_dictinary.data.db.relations.EnglishWithPersian
-import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class WordRepositoryImp @Inject constructor(val local: WordsDao):WordRepository {
-    override fun searchWords(value: String)= Pager(
+    override fun searchWords(msg: String)= Pager(
         PagingConfig(
             pageSize = 100, maxSize = 1000,
-            enablePlaceholders = false
+            enablePlaceholders = true
         )
     ) {
-        local.searchAllWords(value)
-    }.flow
-
-    override fun searchPersian(msg: String)= Pager(
-        PagingConfig(
-            pageSize = 10, maxSize = 50,
-            prefetchDistance = 10,
-            enablePlaceholders = false
-        )
-    ) {
-        local.searchPersian(msg)
+        local.searchAllWords(msg)
     }.flow
 }
 

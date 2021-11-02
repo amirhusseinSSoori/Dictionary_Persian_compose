@@ -12,14 +12,11 @@ import kotlinx.coroutines.flow.Flow
 interface WordsDao {
 
 
-    @Transaction
-    @Query("Select * from english where   englishWord like '%' || :msg || '%'")
-    fun searchAllWords(msg: String): PagingSource<Int, English>
 //    @Query("SELECT * FROM English where englishWord like '%' || :msg || '%'")
 //@Query("SELECT    * FROM   English INNER JOIN Persian ON English.idEnglishWord = Persian.idEnglishWord  where  englishWord like '%' || :msg || '%'  ")
 
 //    @Query("select * from English  where idEnglishWord in (select distinct(idEnglishWord) from persian  ) and  englishWord   like '%' || :msg || '%'")
     @Transaction
     @Query("SELECT * FROM English INNER JOIN Persian on English.idEnglishWord=Persian.idEnglishWord where  englishWord like '%' || :msg || '%' or persianWord like '%' || :msg || '%'  group by English.idEnglishWord")
-    fun searchPersian(msg: String): PagingSource<Int, EnglishWithPersian>
+    fun searchAllWords(msg: String): PagingSource<Int, EnglishWithPersian>
 }

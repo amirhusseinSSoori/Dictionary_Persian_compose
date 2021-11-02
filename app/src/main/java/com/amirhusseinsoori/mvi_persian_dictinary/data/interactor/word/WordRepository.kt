@@ -6,6 +6,6 @@ import com.amirhusseinsoori.mvi_persian_dictinary.data.db.relations.EnglishWithP
 import kotlinx.coroutines.flow.Flow
 
 interface WordRepository {
-    fun searchWords(value:String): Flow<PagingData<English>>
-    fun searchPersian(msg: String): Flow<PagingData<EnglishWithPersian>>
+
+    fun searchWords(msg: String): Flow<PagingData<EnglishWithPersian>>
 }

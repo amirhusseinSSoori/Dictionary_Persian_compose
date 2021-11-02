@@ -1,11 +1,8 @@
 package com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity
 
 import android.os.Parcelable
-import androidx.room.Entity
-import androidx.room.ForeignKey
+import androidx.room.*
 import androidx.room.ForeignKey.CASCADE
-import androidx.room.Index
-import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -15,5 +12,6 @@ data class Persian (
     var idPersianWord: Int,
     var idEnglishWord: Int,
     var idKindWord:Int,
+    @ColumnInfo(index = true)
     var persianWord:String,
 ): Parcelable
