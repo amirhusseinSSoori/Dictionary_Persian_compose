@@ -9,7 +9,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.EnglishWord
+import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.English
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.details.Details
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.intro.Intro
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.words.WordScreen
@@ -132,7 +132,7 @@ fun NavGraphBuilder.DetailNavigation(
         }
     ) {
         it.arguments?.getString("details").let {json->
-            Details(Gson().fromJson(json,EnglishWord::class.java),)
+            Details(Gson().fromJson(json,English::class.java),)
         }
 
     }

@@ -1,9 +1,11 @@
 package com.amirhusseinsoori.mvi_persian_dictinary.ui.words
 
+import android.util.Log
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -13,24 +15,43 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.amirhusseinsoori.mvi_persian_dictinary.common.utilFont
-import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.EnglishWord
-import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.PersianWord
+import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.English
 import com.amirhusseinsoori.mvi_persian_dictinary.data.db.relations.EnglishWithPersian
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.SearchBar
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.component.DicCard
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.*
+import kotlinx.coroutines.launch
+import kotlin.properties.Delegates
 
 @ExperimentalAnimationApi
 @Composable
-fun WordScreen(navigateToDetailsScreen: (id: EnglishWord) -> Unit) {
+fun WordScreen(navigateToDetailsScreen: (id: EnglishWithPersian) -> Unit) {
+    var b: LazyPagingItems<EnglishWithPersian>?=null
+
+    var detailsListener: EnglishWithPersian? by Delegates.observable(EnglishWithPersian()) { _, oldValue, newValue ->
+
+                if(oldValue!=newValue){
+
+                }
+
+
+    }
     DicTheme {
         val viewModel: MainViewModel = hiltViewModel()
-        viewModel._stateWords.collectAsState().let { data ->
+
+
+        viewModel._statePersain.collectAsState().let { data ->
+
             val paging = data.value.paging.collectAsLazyPagingItems()
+
             var value by remember { data.value.search }
+
+          paging.let {
+
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -39,7 +60,7 @@ fun WordScreen(navigateToDetailsScreen: (id: EnglishWord) -> Unit) {
                     query = value,
                     onQueryChange = {
                         value = it
-                        viewModel.searchMessage(value)
+                        viewModel.searchPersian(value)
                     },
                     searchFocused = true,
                     onSearchFocusChange = { },
@@ -54,26 +75,65 @@ fun WordScreen(navigateToDetailsScreen: (id: EnglishWord) -> Unit) {
                     modifier = Modifier
                         .fillMaxSize()
                 ) {
-                    if(value != ""){
-                        items(paging) {
-
-
-                                WordItem(it!!, navigateToDetailsScreen)
-
-
-                        }
+                    items(paging) {
+                        WordItem(it!!)
                     }
-
                 }
             }
+
+          }
+
         }
+
+//        viewModel._stateWords.collectAsState().let { data ->
+//            val paging = data.value.paging.collectAsLazyPagingItems()
+//            var value by remember { data.value.search }
+//            Column(
+//                modifier = Modifier
+//                    .fillMaxSize()
+//            ) {
+//                SearchBar(
+//                    query = value,
+//                    onQueryChange = {
+//                        value = it
+//                        viewModel.searchMessage(value)
+//                    },
+//                    searchFocused = true,
+//                    onSearchFocusChange = { },
+//                    onClearQuery = {
+//                            value = ""
+//                    },
+//                    searching = false,
+//                    enableClose = value != ""
+//
+//                )
+//                LazyColumn(
+//                    modifier = Modifier
+//                        .fillMaxSize()
+//                ) {
+//                    if(value != ""){
+//                        items(paging) {
+//
+//
+//                                WordItem(it!!, navigateToDetailsScreen)
+//
+//
+//                        }
+//                    }
+//
+//                }
+//            }
+//        }
 
     }
 }
 
 
+
+
+
 @Composable
-fun WordItem(data: EnglishWord, navigateToDetailsScreen: (id: EnglishWord) -> Unit) {
+fun WordItem(data: EnglishWithPersian) {
 
 
     DicCard {
@@ -81,7 +141,7 @@ fun WordItem(data: EnglishWord, navigateToDetailsScreen: (id: EnglishWord) -> Un
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable {
-                    navigateToDetailsScreen(data)
+
                 },
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -92,19 +152,28 @@ fun WordItem(data: EnglishWord, navigateToDetailsScreen: (id: EnglishWord) -> Un
                     .fillMaxWidth()
 
                     .padding(start = 10.dp, top = 1.dp),
-                text = data.englishWord ,fontFamily = utilFont,
+                text = data.english!!.englishWord ,fontFamily = utilFont,
                 fontWeight = FontWeight.Medium,
                 textAlign = TextAlign.Start
             )
-            Text(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(end = 10.dp, top = 0.dp),
-                text = data.englishWord, fontFamily = utilFont, color = Neutral5,
-                fontWeight = FontWeight.Medium,
-                textAlign = TextAlign.End,
-                fontSize = 12.sp
-            )
+
+
+            var list =data.persian!!.toSet().toList()
+
+            if (list != null) {
+                for(n in list ){
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(end = 10.dp, top = 0.dp),
+                        text = n.persianWord, fontFamily = utilFont, color = Neutral5,
+                        fontWeight = FontWeight.Medium,
+                        textAlign = TextAlign.End,
+                        fontSize = 12.sp
+                    )
+                }
+            }
+
         }
     }
 }

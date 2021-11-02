@@ -29,7 +29,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.amirhusseinsoori.mvi_persian_dictinary.R
 import com.amirhusseinsoori.mvi_persian_dictinary.common.utilFont
-import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.EnglishWord
+import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.English
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.component.DicCard
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.DicTheme
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.Neutral2
@@ -37,7 +37,7 @@ import java.util.*
 
 
 @Composable
-fun Details(word: EnglishWord) {
+fun Details(word: English) {
     val ctx = LocalContext.current
 
 
@@ -184,7 +184,7 @@ fun initialSpeech(
     speech: TextToSpeech,
     audio: AudioManager,
     ctx: Context,
-    word: EnglishWord,
+    word: English,
     local: Locale
 ) {
     speech.language = local

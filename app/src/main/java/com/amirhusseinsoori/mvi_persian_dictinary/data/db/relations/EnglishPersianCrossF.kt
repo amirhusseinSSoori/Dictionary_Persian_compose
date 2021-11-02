@@ -5,5 +5,5 @@ import androidx.room.Entity
 @Entity(primaryKeys = ["idEnglishWord", "idPersianWord"])
 data class EnglishPersianCrossF(
     val idEnglishWord: Int,
-    val idPersianWord: String
+    val idPersianWord: Int
 )
