@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @Entity
 data class Persian (
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     var idPersianWord: Int,
     var idEnglishWord: Int,
     var idKindWord:Int,

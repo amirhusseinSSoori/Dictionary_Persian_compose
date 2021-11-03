@@ -98,7 +98,7 @@ fun NavGraphBuilder.WordNavigation(
             ) + fadeIn(animationSpec = tween(300))
         },
     ) {
-        WordScreen(navigateToDetailsScreen={
+        WordScreen(navigateToDetailsScreen = {
             navController.navigate("${NavRoute.DetailsRoute.route}/${Gson().toJson(it)}")
         })
     }
@@ -131,9 +131,7 @@ fun NavGraphBuilder.DetailNavigation(
             ) + fadeOut(animationSpec = tween(300))
         }
     ) {
-        it.arguments?.getString("details").let {json->
-            Details(Gson().fromJson(json,English::class.java),)
-        }
 
+            Details()
     }
 }

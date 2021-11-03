@@ -6,6 +6,7 @@ import com.amirhusseinsoori.mvi_persian_dictinary.data.db.DictionaryDataBase
 import com.amirhusseinsoori.mvi_persian_dictinary.data.db.dao.WordsDao
 import com.amirhusseinsoori.mvi_persian_dictinary.data.interactor.word.WordRepository
 import com.amirhusseinsoori.mvi_persian_dictinary.data.interactor.word.WordRepositoryImp
+import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,5 +42,9 @@ object AppModule {
     @Provides
     fun provideWordRepository(local: WordsDao):WordRepository{
         return WordRepositoryImp(local)
+    }
+    @Provides
+    fun provideGson(): Gson {
+        return Gson()
     }
 }
