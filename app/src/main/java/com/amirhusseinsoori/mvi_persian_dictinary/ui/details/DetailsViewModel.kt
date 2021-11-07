@@ -7,8 +7,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.amirhusseinsoori.mvi_persian_dictinary.common.sendArgument
-import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.English
+import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.EnglishEntity
 import com.amirhusseinsoori.mvi_persian_dictinary.data.db.relations.EnglishWithDefinition
+import com.amirhusseinsoori.mvi_persian_dictinary.data.db.relations.EnglishWithPersian
 import com.amirhusseinsoori.mvi_persian_dictinary.data.interactor.word.WordRepository
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,8 +23,28 @@ class DetailsViewModel @Inject constructor(val rep: WordRepository,   savedState
     val  stateExample= MutableStateFlow(StateExample())
     val _stateExample= stateExample.asStateFlow()
 
+
+
     init {
-        exampleWords(gson.fromJson(savedStateHandle.sendArgument("details"), English::class.java).idEnglishWord)
+
+        gson.fromJson(savedStateHandle.sendArgument("details"), EnglishWithPersian::class.java).apply {
+
+            handleEvent(ExampleEvent.ShowExampleWord(english!!.id))
+        }
+
+
+
+    }
+
+
+    private fun handleEvent(handleEvent: ExampleEvent){
+        when(handleEvent){
+            is ExampleEvent.ShowExampleWord -> {
+                exampleWords(handleEvent.id)
+            }
+
+        }
+
     }
 
     private fun exampleWords(id:Int){
@@ -31,13 +52,26 @@ class DetailsViewModel @Inject constructor(val rep: WordRepository,   savedState
             rep.exampleWords(id).catch {
                 Log.e("TAG", "example: ${it.message}", )
             }.collect {
-                stateExample.value=stateExample.value.copy(data=it)
+                stateExample.value=stateExample.value.copy(definition=it)
             }
         }
     }
 
+
+
     data class StateExample(
-        var data: EnglishWithDefinition = EnglishWithDefinition(),
+        var definition: EnglishWithDefinition = EnglishWithDefinition(),
+        var PersianWord:String = " ",
         var search: MutableState<String> = mutableStateOf("")
     )
+
+
+    sealed class ExampleEvent(){
+
+        data class ShowExampleWord(var id:Int):ExampleEvent()
+
+
+    }
+
+
 }

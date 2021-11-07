@@ -2,13 +2,12 @@ package com.amirhusseinsoori.mvi_persian_dictinary.data.db.relations
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.DefinitionExamples
-import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.English
-import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.Persian
+import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.DefinitionEntity
+import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.EnglishEntity
 
 data class EnglishWithDefinition (
     @Embedded
-    var english: English?=null,
+    var english: EnglishEntity?=null,
     @Relation(parentColumn = "idEnglishWord", entityColumn = "idEnglishWord")
-    var definition: List<DefinitionExamples>?=null
+    var definition: List<DefinitionEntity>?=null
         )

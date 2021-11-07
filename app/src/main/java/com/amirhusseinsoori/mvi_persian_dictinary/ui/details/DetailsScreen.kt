@@ -19,24 +19,42 @@ import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.Neutral5
 
 @Composable
 fun Details() {
-    DicTheme() {
+    DicTheme {
         val viewModel: DetailsViewModel = hiltViewModel()
+
         viewModel._stateExample.collectAsState().let { data ->
-            val paging = data.value.data
+            val paging = data.value.definition
             paging.let {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(Neutral2), verticalArrangement = Arrangement.Center,
+                        .background(Neutral2),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    it.apply { definition?.let { items->
+                    it.apply {
+                        english?.let {
+                            Text(text = it.englishWord)
+                        }
+
+
+                        definition?.let { items->
                             for (n in items) {
                                 Text(
                                     modifier = Modifier
                                         .fillMaxWidth()
                                         .padding(end = 10.dp, top = 0.dp),
                                     text = n.definition,
+                                    fontFamily = utilFont,
+                                    color = Neutral5,
+                                    fontWeight = FontWeight.Medium,
+                                    textAlign = TextAlign.End,
+                                    fontSize = 12.sp
+                                )
+                                Text(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(end = 10.dp, top = 0.dp),
+                                    text = n.example,
                                     fontFamily = utilFont,
                                     color = Neutral5,
                                     fontWeight = FontWeight.Medium,

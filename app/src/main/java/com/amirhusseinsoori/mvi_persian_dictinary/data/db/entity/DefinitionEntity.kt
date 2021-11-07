@@ -3,17 +3,17 @@ package com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
-import java.util.*
-
 
 @Parcelize
-@Entity
-data class English constructor(
+@Entity(tableName = "DefinitionExamples")
+data class DefinitionEntity (
     @PrimaryKey(autoGenerate = false)
-    var idEnglishWord: Int,
-    var englishWord: String,
-    ) : Parcelable
+    @ColumnInfo(name = "idDefinitionExamples")
+    var id:Int,
+    var idEnglishWord:Int,
+    var idKindWord:Int,
+    var definition:String,
+    var example: String
+): Parcelable

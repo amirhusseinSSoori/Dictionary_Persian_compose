@@ -18,6 +18,8 @@ package com.amirhusseinsoori.mvi_persian_dictinary.ui
 
 
 import android.content.res.Configuration
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Box
@@ -32,6 +34,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -41,29 +45,40 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.amirhusseinsoori.mvi_persian_dictinary.R
+import com.amirhusseinsoori.mvi_persian_dictinary.common.clearFocusOnKeyboardDismiss
 import com.amirhusseinsoori.mvi_persian_dictinary.common.mirroringCancelIcon
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.component.DicSurface
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.DicTheme
 
 
+@ExperimentalComposeUiApi
 @ExperimentalAnimationApi
 @Composable
  fun SearchBar(
     query: String ,
     onQueryChange: (String) -> Unit,
-    searchFocused: Boolean,
-    onSearchFocusChange: (Boolean) -> Unit,
+
     onClearQuery: () -> Unit,
-    searching: Boolean,
+    onSearchFocusChange: (Boolean) -> Unit,
     enableClose:Boolean,
     modifier: Modifier = Modifier
 ) {
+    var kbClosed: () -> Unit = {}
+    val focusManager = LocalFocusManager.current
+
+    var ctx= LocalContext.current
     DicSurface(
         color = DicTheme.colors.uiFloated,
         contentColor = DicTheme.colors.textSecondary,
@@ -83,7 +98,7 @@ import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.DicTheme
                     .fillMaxSize()
                     .wrapContentHeight()
             ) {
-                if (searchFocused) {
+
                     AnimatedVisibility(visible = enableClose) {
                         IconButton(onClick = onClearQuery) {
                             Icon(
@@ -94,26 +109,30 @@ import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.DicTheme
                         }
                     }
 
-                }
+                val keyboardController = LocalSoftwareKeyboardController.current
                 BasicTextField(
                     value = query,
                     onValueChange = onQueryChange,
                     modifier = Modifier
+                        .clearFocusOnKeyboardDismiss()
                         .weight(1f)
                         .onFocusChanged {
                             onSearchFocusChange(it.isFocused)
-                        }
+                        },
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Text,
+                        imeAction = ImeAction.Done,
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onDone = {
+                            Toast.makeText(ctx, "sdffsd", Toast.LENGTH_SHORT).show()
+//                        onExecuteSearch()
+
+                        keyboardController?.hide()
+                        },
+                    ),
                 )
-                if (searching) {
-                    CircularProgressIndicator(
-                        color = DicTheme.colors.iconPrimary,
-                        modifier = Modifier
-                            .padding(horizontal = 6.dp)
-                            .size(36.dp)
-                    )
-                } else {
-                    Spacer(Modifier.width(IconSize)) // balance arrow icon
-                }
+
             }
         }
     }
@@ -142,6 +161,7 @@ private fun SearchHint() {
     }
 }
 
+@ExperimentalComposeUiApi
 @ExperimentalAnimationApi
 @Preview("default")
 @Preview("dark theme", uiMode = Configuration.UI_MODE_NIGHT_YES)
@@ -153,10 +173,8 @@ private fun SearchBarPreview() {
             SearchBar(
                 query = "",
                 onQueryChange = { },
-                searchFocused = false,
                 onSearchFocusChange = { },
                 onClearQuery = { },
-                searching = false,
                 enableClose = false
             )
         }

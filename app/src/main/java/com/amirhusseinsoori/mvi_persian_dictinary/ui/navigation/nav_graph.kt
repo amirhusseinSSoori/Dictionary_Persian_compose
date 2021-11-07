@@ -1,32 +1,40 @@
 package com.amirhusseinsoori.mvi_persian_dictinary.ui.navigation
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.animation.*
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.English
+import com.amirhusseinsoori.mvi_persian_dictinary.common.BackHandler
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.details.Details
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.intro.Intro
+import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.DicTheme
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.words.WordScreen
 
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.gson.Gson
+import kotlinx.coroutines.launch
 
 
+@ExperimentalMaterialApi
 @ExperimentalComposeUiApi
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
 @Composable
 fun InitialNavGraph(){
     val navController: NavHostController = rememberAnimatedNavController()
-    AnimatedNavHost(navController = navController, startDestination = NavRoute.IntroRoute.route){
+    AnimatedNavHost(navController = navController, startDestination = NavRoute.WordRoute.route){
         addIntro(navController)
         WordNavigation(navController)
         DetailNavigation()
@@ -71,12 +79,14 @@ fun NavGraphBuilder.addIntro(navController: NavController) {
     }
 }
 
+@ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @ExperimentalComposeUiApi
 @ExperimentalAnimationApi
 fun NavGraphBuilder.WordNavigation(
     navController: NavController
 ) {
+
     composable(
         route = NavRoute.WordRoute.route,
         exitTransition = { _, _ ->
@@ -98,9 +108,17 @@ fun NavGraphBuilder.WordNavigation(
             ) + fadeIn(animationSpec = tween(300))
         },
     ) {
-        WordScreen(navigateToDetailsScreen = {
-            navController.navigate("${NavRoute.DetailsRoute.route}/${Gson().toJson(it)}")
-        })
+
+        var ctx= LocalContext.current
+        DicTheme{
+//        BackHandler(onBack ={
+//
+//        })
+            WordScreen(navigateToDetailsScreen = {
+                navController.navigate("${NavRoute.DetailsRoute.route}/${Gson().toJson(it)}")
+            })
+        }
+
     }
 }
 
@@ -131,7 +149,6 @@ fun NavGraphBuilder.DetailNavigation(
             ) + fadeOut(animationSpec = tween(300))
         }
     ) {
-
-            Details()
+        Details()
     }
 }

@@ -6,10 +6,11 @@ import androidx.room.ForeignKey.CASCADE
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-@Entity
-data class Persian (
+@Entity(tableName = "Persian")
+data class PersianEntity (
     @PrimaryKey(autoGenerate = false)
-    var idPersianWord: Int,
+    @ColumnInfo(name = "idPersianWord")
+    var id: Int,
     var idEnglishWord: Int,
     var idKindWord:Int,
     @ColumnInfo(index = true)
