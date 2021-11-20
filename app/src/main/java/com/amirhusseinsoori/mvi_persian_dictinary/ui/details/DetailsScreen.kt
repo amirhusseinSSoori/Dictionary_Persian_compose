@@ -85,7 +85,7 @@ fun Details() {
                                             .padding(end = 10.dp, top = 10.dp, bottom = 10.dp, start = 15.dp),
                                         text = n.definition,
                                         fontFamily = utilFont,
-                                        fontWeight = FontWeight.Normal,
+                                        fontWeight = FontWeight.Medium,
                                         textAlign = TextAlign.Left,
                                         fontSize = 20.sp
                                     )
