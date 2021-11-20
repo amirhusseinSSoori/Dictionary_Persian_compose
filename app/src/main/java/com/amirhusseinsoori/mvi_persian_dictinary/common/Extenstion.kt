@@ -16,7 +16,7 @@ fun<T> SavedStateHandle.sendArgument(data:T):T{
   }
 }
 
-fun ArrayList<PersianEntity>.persianString():String{
+fun List<PersianEntity>.persianString():String{
     val sb = StringBuilder()
     this.forEach{ sb.append(it.persianWord + " , ") }
     return sb.toString().dropLast(2) }

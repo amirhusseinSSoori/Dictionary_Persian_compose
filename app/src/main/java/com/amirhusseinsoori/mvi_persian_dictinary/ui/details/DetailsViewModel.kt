@@ -7,7 +7,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.amirhusseinsoori.mvi_persian_dictinary.common.sendArgument
-import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.EnglishEntity
+import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.PersianEntity
 import com.amirhusseinsoori.mvi_persian_dictinary.data.db.relations.EnglishWithDefinition
 import com.amirhusseinsoori.mvi_persian_dictinary.data.db.relations.EnglishWithPersian
 import com.amirhusseinsoori.mvi_persian_dictinary.data.interactor.word.WordRepository
@@ -26,15 +26,10 @@ class DetailsViewModel @Inject constructor(val rep: WordRepository,   savedState
 
 
     init {
-
         gson.fromJson(savedStateHandle.sendArgument("details"), EnglishWithPersian::class.java).apply {
-
             handleEvent(ExampleEvent.ShowExampleWord(english!!.id))
-        }
-
-
-
-    }
+            stateExample.value= stateExample.value.copy(persianWord = persian!!)
+        } }
 
 
     private fun handleEvent(handleEvent: ExampleEvent){
@@ -44,15 +39,14 @@ class DetailsViewModel @Inject constructor(val rep: WordRepository,   savedState
             }
 
         }
-
     }
 
-    private fun exampleWords(id:Int){
+    private fun exampleWords(id:Int) {
         viewModelScope.launch {
             rep.exampleWords(id).catch {
                 Log.e("TAG", "example: ${it.message}", )
             }.collect {
-                stateExample.value=stateExample.value.copy(definition=it)
+                stateExample.value = stateExample.value.copy(definition = it)
             }
         }
     }
@@ -61,16 +55,13 @@ class DetailsViewModel @Inject constructor(val rep: WordRepository,   savedState
 
     data class StateExample(
         var definition: EnglishWithDefinition = EnglishWithDefinition(),
-        var PersianWord:String = " ",
+        var persianWord:List<PersianEntity>? = emptyList(),
         var search: MutableState<String> = mutableStateOf("")
     )
 
 
     sealed class ExampleEvent(){
-
         data class ShowExampleWord(var id:Int):ExampleEvent()
-
-
     }
 
 
