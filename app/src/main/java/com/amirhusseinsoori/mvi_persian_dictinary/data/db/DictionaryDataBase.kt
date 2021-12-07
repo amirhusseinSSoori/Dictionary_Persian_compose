@@ -18,7 +18,6 @@ import javax.inject.Provider
     version = 1,
     exportSchema = true
 )
-
 abstract class DictionaryDataBase : RoomDatabase() {
     abstract fun wordDao(): WordsDao
 

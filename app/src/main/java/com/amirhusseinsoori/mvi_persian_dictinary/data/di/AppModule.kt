@@ -35,7 +35,7 @@ object AppModule {
                 DictionaryDataBase::class.java,
                 "dbEnglishWords"
             )
-            .fallbackToDestructiveMigration()
+//            .fallbackToDestructiveMigration()
             .addCallback(callback)
             .createFromAsset("dbEnglishWords")
             .build()

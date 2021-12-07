@@ -14,30 +14,16 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class WordViewModel @Inject constructor(val rep: WordRepository) : ViewModel() {
+class WordViewModel @Inject constructor(private val rep: WordRepository) : ViewModel() {
 
-    val  statePersain= MutableStateFlow(StatePersain())
+    val  statePersain= MutableStateFlow(StatePersian())
     val _statePersain= statePersain.asStateFlow()
 
-
-
-   init {
-
-
-   }
-
-
-    fun searchPersian(value :String){
+    fun searchWords(value :String){
         viewModelScope.launch(Dispatchers.IO) {
             statePersain.value = statePersain.value.copy(paging = rep.searchWords(value) )
         }
 
     }
-
-
-    data class StatePersain(
-        var paging: Flow<PagingData<EnglishWithPersian>> = emptyFlow(),
-        var search:MutableState<String> = mutableStateOf("")
-    )
 
 }

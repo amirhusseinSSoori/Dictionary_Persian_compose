@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.Text
@@ -41,8 +42,6 @@ fun Details() {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     it.apply {
-
-
                         english?.let {
                             Text(
                                 modifier = Modifier
@@ -67,10 +66,8 @@ fun Details() {
                                 fontSize = 15.sp
                             )
                         }
-
                         Spacer(modifier = Modifier.padding(top = 25.dp))
                         Text(text = "definition", textAlign = TextAlign.Center, fontSize = 20.sp)
-
                         Spacer(modifier = Modifier.padding(top = 35.dp, start = 15.dp))
                         definition?.let { items ->
                             items.forEach { n ->
@@ -91,7 +88,6 @@ fun Details() {
                                     )
                                 }
                             }
-
                         }
                         Spacer(modifier = Modifier.padding(top = 35.dp))
                         Text(text = "Example", textAlign = TextAlign.Center, fontSize = 20.sp)
@@ -104,19 +100,25 @@ fun Details() {
                                     backgroundColor = Color.White,
                                     elevation = 5.dp, modifier = Modifier.padding(10.dp)
                                 ) {
-                                    Text(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .padding(end = 10.dp, top = 10.dp, bottom = 10.dp, start = 15.dp),
-                                        text = n.example,
-                                        fontFamily = utilFont,
-                                        fontWeight = FontWeight.Medium,
-                                        textAlign = TextAlign.Left,
-                                        fontSize = 18.sp
-                                    )
+                                    SelectionContainer() {
+                                        Text(
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .padding(
+                                                    end = 10.dp,
+                                                    top = 10.dp,
+                                                    bottom = 10.dp,
+                                                    start = 15.dp
+                                                ),
+                                            text = n.example,
+                                            fontFamily = utilFont,
+                                            fontWeight = FontWeight.Medium,
+                                            textAlign = TextAlign.Left,
+                                            fontSize = 18.sp
+                                        )
+                                    }
                                 }
                             }
-
                         }
                     }
                 }
