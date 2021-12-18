@@ -67,12 +67,15 @@ val Neutral4 = Color(0x1f000000)
 val Neutral3 = Color(0x1fffffff)
 val Neutral2 = Color(0x61ffffff)
 val Neutral1 = Color(0xbdffffff)
-val Neutral0 = Color(0xffffffff)
+val Neutral0 = Color(0xFFEEEDFD)
 
 val FunctionalRed = Color(0xffd00036)
 val FunctionalRedDark = Color(0xffea6d7e)
 val FunctionalGreen = Color(0xff52c41a)
 val FunctionalGrey = Color(0xfff6f6f6)
 val FunctionalDarkGrey = Color(0xff2e2e2e)
+val Violet = Color(0xFF28195C)
+val VioletHistory = Color(0xCC28195C)
+val VioletBackground = Color(0xB31F1347)
 
 const val AlphaNearOpaque = 0.95f

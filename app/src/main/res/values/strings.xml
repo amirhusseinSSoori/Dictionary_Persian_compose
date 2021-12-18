@@ -1,9 +1,17 @@
 <resources>
-    <string name="app_name">Mvi_Persian_Dictinary</string>
+    <string name="app_name">Dictionary</string>
     <string name="label_back">Back</string>
     <string name="label_search">Perform search</string>
     <string name="search_word">Search Words</string>
     <string name="intro">dictionary</string>
     <string name="cancel">"بازگشت"</string>
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+
+    <string name="title_second_app_name">English - Persian</string>
+    <string name="title_history">History</string>
+    <string name="clear_history">Clear All</string>
+    <string name="not_exist_history">کلمه ای موجود نیست</string>
+    <string name="title_define_screen_example">Example</string>
+    <string name="title_define_screen_definition">Definition</string>
+
 </resources>
