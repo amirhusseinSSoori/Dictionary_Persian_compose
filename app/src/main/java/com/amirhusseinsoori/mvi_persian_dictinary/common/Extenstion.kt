@@ -21,6 +21,11 @@ fun List<PersianEntity>.persianString():String{
     this.forEach{ sb.append(it.persianWord + " , ") }
     return sb.toString().dropLast(2) }
 
+fun List<String>.previewString():String{
+    val sb = StringBuilder()
+    this.forEach{ sb.append("$it , ") }
+    return sb.toString().dropLast(2) }
+
 @Composable
 public fun BackHandler(enabled: Boolean = true, onBack: () -> Unit) {
     // Safely update the current `onBack` lambda when a new one is provided
