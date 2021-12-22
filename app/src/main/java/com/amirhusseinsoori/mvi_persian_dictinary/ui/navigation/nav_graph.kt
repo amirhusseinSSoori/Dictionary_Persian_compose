@@ -34,7 +34,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun InitialNavGraph(){
     val navController: NavHostController = rememberAnimatedNavController()
-    AnimatedNavHost(navController = navController, startDestination = NavRoute.WordRoute.route){
+    AnimatedNavHost(navController = navController, startDestination = NavRoute.IntroRoute.route){
         addIntro(navController)
         WordNavigation(navController)
         DetailNavigation()
@@ -108,12 +108,7 @@ fun NavGraphBuilder.WordNavigation(
             ) + fadeIn(animationSpec = tween(300))
         },
     ) {
-
-        var ctx= LocalContext.current
         DicTheme{
-//        BackHandler(onBack ={
-//
-//        })
             WordScreen(navigateToDetailsScreen = {
                 navController.navigate("${NavRoute.DetailsRoute.route}/${Gson().toJson(it)}")
             })

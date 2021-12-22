@@ -7,14 +7,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.selection.SelectionContainer
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
-import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -23,10 +20,8 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.amirhusseinsoori.mvi_persian_dictinary.R
-import com.amirhusseinsoori.mvi_persian_dictinary.common.persianString
 import com.amirhusseinsoori.mvi_persian_dictinary.common.previewString
 import com.amirhusseinsoori.mvi_persian_dictinary.common.utilFont
-import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.PersianEntity
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.component.DefineTitle
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.*
 
@@ -35,7 +30,7 @@ import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.*
 fun Details() {
     DicTheme {
         val scroll = rememberScrollState(0)
-        var nu by rememberSaveable { mutableStateOf(true) }
+        var checkNullAble by rememberSaveable { mutableStateOf(true) }
         val viewModel: DetailsViewModel = hiltViewModel()
         viewModel._stateExample.collectAsState().let { data ->
             val paging = data.value.definition
@@ -62,8 +57,6 @@ fun Details() {
                                 .fillMaxSize()
                                 .verticalScroll(scroll)
                         ) {
-
-
                             it.apply {
                                 Column {
                                         english?.let {
@@ -92,12 +85,14 @@ fun Details() {
                                 Spacer(modifier = Modifier.padding(top = 25.dp))
                                 DefineTitle(
                                     text = stringResource(R.string.title_define_screen_definition),
-                                    nu
+                                    checkNullAble
                                 )
                                 Spacer(modifier = Modifier.padding(top = 8.dp, start = 15.dp))
-
-                                definition?.let { items ->
-                                    items.forEach { n ->
+                                definition?.let { def ->
+                                    if (def.isEmpty()) {
+                                        checkNullAble = false
+                                    }
+                                    def.forEach { n ->
                                         Card(
                                             shape = RoundedCornerShape(10.dp),
                                             backgroundColor = Neutral0,
@@ -128,7 +123,7 @@ fun Details() {
                                 Spacer(modifier = Modifier.padding(top = 35.dp))
                                 DefineTitle(
                                     text = stringResource(R.string.title_define_screen_example),
-                                    nu
+                                    checkNullAble
                                 )
                                 Spacer(modifier = Modifier.padding(top = 8.dp))
                                 definition?.let { items ->

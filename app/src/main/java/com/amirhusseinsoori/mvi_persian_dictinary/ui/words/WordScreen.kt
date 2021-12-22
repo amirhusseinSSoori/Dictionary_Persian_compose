@@ -30,7 +30,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import com.amirhusseinsoori.mvi_persian_dictinary.R
@@ -47,7 +46,6 @@ import com.amirhusseinsoori.mvi_persian_dictinary.ui.SearchBar
 
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.component.DicCard
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.component.SetFlagCard
-import com.amirhusseinsoori.mvi_persian_dictinary.ui.navigation.NavRoute
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.*
 
 @ExperimentalMaterialApi
@@ -58,7 +56,7 @@ fun WordScreen(navigateToDetailsScreen: (id: MainModel) -> Unit) {
 
     DicTheme {
         val viewModel: WordViewModel = hiltViewModel()
-        viewModel._statePersain.collectAsState().let { data ->
+        viewModel._stateWord.collectAsState().let { data ->
             var expanded by remember { mutableStateOf(false) }
             val paging = data.value.paging.collectAsLazyPagingItems()
             val listHistory = data.value.listHistory
@@ -123,10 +121,9 @@ fun WordScreen(navigateToDetailsScreen: (id: MainModel) -> Unit) {
                             query = value,
                             onQueryChange = {
                                 value = it
-                                viewModel.searchWords(value)
-
+                                viewModel.handleEvent(WordEvent.SearchEvent(value))
                             },
-                            onSearchFocusChange = { },
+                            onSearchFocusChange = { expanded = false},
                             onClearQuery = {
                                 value = ""
                             },
@@ -162,7 +159,7 @@ fun WordScreen(navigateToDetailsScreen: (id: MainModel) -> Unit) {
                         list = listHistory,
                         navigateToDetailsScreen,
                         deleteHistory = {
-                            viewModel.deleteHistory()
+                            viewModel.handleEvent(WordEvent.DeleteHistoryItem)
                         }
                     )
                 }

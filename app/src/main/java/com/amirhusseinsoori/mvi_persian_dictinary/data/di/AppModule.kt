@@ -28,47 +28,38 @@ object AppModule {
     @Singleton
     @Provides
     fun provideDicDb(
-        @ApplicationContext context: Context,
-         callback: DictionaryDataBase.Callback
+        @ApplicationContext context: Context
     ): DictionaryDataBase {
-
         return Room
             .databaseBuilder(
                 context,
                 DictionaryDataBase::class.java,
                 "dbEnglishWords"
             )
-//            .fallbackToDestructiveMigration()
-            .addCallback(callback)
             .createFromAsset("dbEnglishWords")
             .build()
     }
 
     @Provides
-    fun provideWordDao(db:DictionaryDataBase):WordsDao = db.wordDao()
+    fun provideWordDao(db: DictionaryDataBase): WordsDao = db.wordDao()
 
     @Provides
-    fun provideLastSearchDao(db:DictionaryDataBase):LastSearchDao = db.lastSearchDao()
+    fun provideLastSearchDao(db: DictionaryDataBase): LastSearchDao = db.lastSearchDao()
+
     @Provides
-    fun provideWordRepository(local: WordsDao):WordRepository{
+    fun provideWordRepository(local: WordsDao): WordRepository {
         return WordRepositoryImp(local)
     }
+
     @Provides
-    fun provideLastRepository(local: LastSearchDao):LastSearchRepository{
+    fun provideLastRepository(local: LastSearchDao): LastSearchRepository {
         return LastSearchRepositoryImp(local)
     }
+
     @Provides
     fun provideGson(): Gson {
         return Gson()
     }
 
-
-    @ApplicationScope
-    @Provides
-    @Singleton
-    fun provideApplicationScope() = CoroutineScope(SupervisorJob())
 }
 
-@Retention(AnnotationRetention.RUNTIME)
-@Qualifier
-annotation class ApplicationScope

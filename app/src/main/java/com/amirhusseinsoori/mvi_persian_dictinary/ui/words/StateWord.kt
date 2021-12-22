@@ -8,7 +8,7 @@ import com.amirhusseinsoori.mvi_persian_dictinary.data.db.relations.EnglishWithP
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
 
-data class StatePersian(
+data class StateWord(
     var paging: Flow<PagingData<EnglishWithPersian>> = emptyFlow(),
     var listHistory: List<LastSearchEntity> = emptyList(),
     var search: MutableState<String> = mutableStateOf("")

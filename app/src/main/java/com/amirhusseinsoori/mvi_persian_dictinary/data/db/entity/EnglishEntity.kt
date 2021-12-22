@@ -6,7 +6,6 @@ import androidx.room.Entity
 import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
-import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
@@ -17,7 +16,6 @@ import java.util.*
 
 data class EnglishEntity constructor(
     @PrimaryKey(autoGenerate = false)
-    @Json(name = "idEnglishWord")
     @ColumnInfo(name = "idEnglishWord")
     var id: Int,
     var englishWord: String,
