@@ -24,6 +24,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.amirhusseinsoori.mvi_persian_dictinary.R
 import com.amirhusseinsoori.mvi_persian_dictinary.common.persianString
+import com.amirhusseinsoori.mvi_persian_dictinary.common.previewString
 import com.amirhusseinsoori.mvi_persian_dictinary.common.utilFont
 import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.PersianEntity
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.component.DefineTitle
@@ -80,7 +81,7 @@ fun Details() {
                                                 modifier = Modifier
                                                     .fillMaxWidth()
                                                     .padding(start = 20.dp, top = 15.dp),
-                                                text = it.persianString(),
+                                                text = it.previewString(),
                                                 fontFamily = utilFont,
                                                 fontWeight = FontWeight.Bold,
                                                 fontSize = 15.sp
