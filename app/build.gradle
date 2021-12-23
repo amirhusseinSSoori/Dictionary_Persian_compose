@@ -142,8 +142,11 @@ dependencies {
 }
 
 
-
-
+configurations.all {
+    resolutionStrategy {
+        force 'org.xerial:sqlite-jdbc:3.34.0'
+    }
+}
 kapt {
     javacOptions {
         // These options are normally set automatically via the Hilt Gradle plugin, but we

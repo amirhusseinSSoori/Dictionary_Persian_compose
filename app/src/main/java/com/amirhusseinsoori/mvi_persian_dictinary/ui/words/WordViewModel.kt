@@ -4,6 +4,7 @@ import androidx.lifecycle.viewModelScope
 import com.amirhusseinsoori.mvi_persian_dictinary.data.interactor.lastSearch.LastSearchRepository
 import com.amirhusseinsoori.mvi_persian_dictinary.data.interactor.word.WordRepository
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.base.BaseViewModel
+import com.amirhusseinsoori.mvi_persian_dictinary.ui.base.State
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
@@ -14,22 +15,27 @@ import javax.inject.Inject
 @HiltViewModel
 class WordViewModel @Inject constructor(
     private val wordRepository: WordRepository,
-    val lastSearchRepository: LastSearchRepository
-) : BaseViewModel<WordEvent>() {
-    private val stateWord = MutableStateFlow(WordState())
-    val _stateWord = stateWord.asStateFlow()
+    private val lastSearchRepository: LastSearchRepository
+) : BaseViewModel<WordEvent,WordState>() {
 
     init {
-        getListHistory()
+      handleEvent(WordEvent.ShowListWord)
     }
+
+    override fun createInitialState(): WordState  = WordState()
+
     override fun handleEvent(handleEvent: WordEvent) {
         when (handleEvent) {
             is WordEvent.SearchEvent -> {
                 searchWords(handleEvent.word)
             }
+            WordEvent.ShowListWord ->{
+                getListHistory()
+            }
             WordEvent.DeleteHistoryItem -> {
                 deleteHistory()
             }
+
         }
     }
 
@@ -41,7 +47,7 @@ class WordViewModel @Inject constructor(
 
     private fun searchWords(value: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            stateWord.value = stateWord.value.copy(paging = wordRepository.searchWords(value))
+            state.value = state.value.copy(paging = wordRepository.searchWords(value))
         }
 
     }
@@ -49,10 +55,12 @@ class WordViewModel @Inject constructor(
     private fun getListHistory() {
         viewModelScope.launch {
             lastSearchRepository.getAllLastSearchWord().collect {
-                stateWord.value = stateWord.value.copy(listHistory = it)
+                state.value = state.value.copy(listHistory = it)
             }
         }
     }
+
+
 
 
 }

@@ -56,7 +56,7 @@ fun WordScreen(navigateToDetailsScreen: (id: MainModel) -> Unit) {
 
     DicTheme {
         val viewModel: WordViewModel = hiltViewModel()
-        viewModel._stateWord.collectAsState().let { data ->
+        viewModel._state.collectAsState().let { data ->
             var expanded by remember { mutableStateOf(false) }
             val paging = data.value.paging.collectAsLazyPagingItems()
             val listHistory = data.value.listHistory

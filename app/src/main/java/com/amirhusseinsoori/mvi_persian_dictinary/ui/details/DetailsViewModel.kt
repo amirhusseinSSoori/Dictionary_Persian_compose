@@ -9,6 +9,7 @@ import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.LastSearchEntit
 import com.amirhusseinsoori.mvi_persian_dictinary.data.interactor.lastSearch.LastSearchRepository
 import com.amirhusseinsoori.mvi_persian_dictinary.data.interactor.word.WordRepository
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.base.BaseViewModel
+import com.amirhusseinsoori.mvi_persian_dictinary.ui.base.State
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -20,27 +21,32 @@ import javax.inject.Inject
 class DetailsViewModel @Inject constructor(
     private val wordRepository: WordRepository, savedStateHandle: SavedStateHandle, gson:Gson,
     private val lastSearchRepository: LastSearchRepository
-) : BaseViewModel<DetailsEvent>() {
-    private val  stateExample = MutableStateFlow(DetailsState())
-    val _stateExample= stateExample.asStateFlow()
+) : BaseViewModel<DetailsEvent,DetailsState>() {
+
+
+    override fun createInitialState(): DetailsState = DetailsState()
+
 
     init {
         gson.fromJson(savedStateHandle.sendArgument("details"), MainModel::class.java).apply {
-            insertToHistory(
-                LastSearchEntity(
-                    id = id,
-                    persian_word = list,
-                    english_word = english
-                )
-            )
             handleEvent(DetailsEvent.ShowExampleWord(id))
-            stateExample.value= stateExample.value.copy(persianWord = list!!)
+            handleEvent(DetailsEvent.InsertToHistory(id=id, listWord = list, english = english))
+            state.value= state.value.copy(persianWord = list)
         }
     }
      override fun handleEvent(handleEvent: DetailsEvent){
         when(handleEvent){
             is DetailsEvent.ShowExampleWord -> {
                 exampleWords(handleEvent.id)
+            }
+            is DetailsEvent.InsertToHistory ->{
+                insertToHistory(
+                    LastSearchEntity(
+                        id = handleEvent.id,
+                        persian_word = handleEvent.listWord,
+                        english_word = handleEvent.english
+                    )
+                )
             }
         }
     }
@@ -49,7 +55,7 @@ class DetailsViewModel @Inject constructor(
         viewModelScope.launch {
             wordRepository.exampleWords(id).catch {
             }.collect {
-                stateExample.value = stateExample.value.copy(definition = it)
+                state.value = state.value.copy(definition = it)
             }
         }
     }
@@ -58,6 +64,8 @@ class DetailsViewModel @Inject constructor(
             lastSearchRepository.insert(lastSearchHistory)
         }
     }
+
+
 
 
 }
