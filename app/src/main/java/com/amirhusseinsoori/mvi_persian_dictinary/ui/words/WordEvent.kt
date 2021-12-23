@@ -1,6 +1,8 @@
 package com.amirhusseinsoori.mvi_persian_dictinary.ui.words
 
-sealed class WordEvent(){
+import com.amirhusseinsoori.mvi_persian_dictinary.ui.base.Event
+
+sealed class WordEvent(): Event {
     data class SearchEvent(var word:String):WordEvent()
     object DeleteHistoryItem:WordEvent()
 }

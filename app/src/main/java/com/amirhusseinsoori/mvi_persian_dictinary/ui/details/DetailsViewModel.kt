@@ -8,6 +8,7 @@ import com.amirhusseinsoori.mvi_persian_dictinary.data.MainModel
 import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.LastSearchEntity
 import com.amirhusseinsoori.mvi_persian_dictinary.data.interactor.lastSearch.LastSearchRepository
 import com.amirhusseinsoori.mvi_persian_dictinary.data.interactor.word.WordRepository
+import com.amirhusseinsoori.mvi_persian_dictinary.ui.base.BaseViewModel
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -19,7 +20,7 @@ import javax.inject.Inject
 class DetailsViewModel @Inject constructor(
     private val wordRepository: WordRepository, savedStateHandle: SavedStateHandle, gson:Gson,
     private val lastSearchRepository: LastSearchRepository
-) : ViewModel() {
+) : BaseViewModel<DetailsEvent>() {
     private val  stateExample = MutableStateFlow(DetailsState())
     val _stateExample= stateExample.asStateFlow()
 
@@ -36,12 +37,11 @@ class DetailsViewModel @Inject constructor(
             stateExample.value= stateExample.value.copy(persianWord = list!!)
         }
     }
-     private fun handleEvent(handleEvent: DetailsEvent){
+     override fun handleEvent(handleEvent: DetailsEvent){
         when(handleEvent){
             is DetailsEvent.ShowExampleWord -> {
                 exampleWords(handleEvent.id)
             }
-
         }
     }
 
