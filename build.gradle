@@ -8,15 +8,31 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:7.0.3"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31"
-        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.38.1'
+        classpath "com.android.tools.build:gradle:7.0.4"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
+        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.40.5'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
 }
-
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        freeCompilerArgs += [
+                "-Xuse-experimental=kotlin.ExperimentalUnsignedTypes",
+                "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi",
+                "-Xuse-experimental=kotlinx.coroutines.InternalCoroutinesApi",
+                "-Xuse-experimental=androidx.compose.animation.ExperimentalAnimationApi",
+                "-Xuse-experimental=androidx.compose.ExperimentalComposeApi",
+                "-Xuse-experimental=androidx.compose.material.ExperimentalMaterialApi",
+                "-Xuse-experimental=androidx.compose.runtime.ExperimentalComposeApi",
+                "-Xuse-experimental=androidx.compose.ui.ExperimentalComposeUiApi",
+                "-Xuse-experimental=coil.annotation.ExperimentalCoilApi",
+                "-Xuse-experimental=kotlinx.serialization.ExperimentalSerializationApi",
+                "-Xuse-experimental=com.google.accompanist.pager.ExperimentalPagerApi"
+        ]
+    }
+}
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
