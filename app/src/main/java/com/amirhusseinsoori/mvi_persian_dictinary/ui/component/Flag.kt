@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -22,7 +21,7 @@ import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.VioletBackground
 
 
 @Composable
-fun SetFlagCard(name:String,flag:Int) {
+fun SetFlagCard(name: String, flag: Int) {
     Card(
         backgroundColor = VioletBackground,
         elevation = 10.dp,
@@ -36,7 +35,9 @@ fun SetFlagCard(name:String,flag:Int) {
             Image(
                 painter = painterResource(flag),
                 contentDescription = "",
-                Modifier.size(30.dp).padding(start = 4.dp, end = 4.dp)
+                Modifier
+                    .size(30.dp)
+                    .padding(start = 4.dp, end = 4.dp)
             )
             Text(
                 modifier = Modifier.padding(start = 4.dp, end = 4.dp),

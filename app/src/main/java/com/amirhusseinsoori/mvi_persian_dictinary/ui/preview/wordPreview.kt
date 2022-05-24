@@ -1,15 +1,12 @@
-package ir.afagh.dictionary.ui.preview
+package com.amirhusseinsoori.mvi_persian_dictinary.ui.preview
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -21,23 +18,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.items
 import com.amirhusseinsoori.mvi_persian_dictinary.R
 import com.amirhusseinsoori.mvi_persian_dictinary.common.utilFont
-import com.amirhusseinsoori.mvi_persian_dictinary.data.db.relations.EnglishWithPersian
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.SearchBar
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.component.SetFlagCard
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.DicTheme
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.Neutral0
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.Violet
-import com.amirhusseinsoori.mvi_persian_dictinary.ui.words.WordItem
-import com.amirhusseinsoori.mvi_persian_dictinary.ui.words.WordViewModel
 
 
 @Composable
-@Preview(name ="wordItem")
+@Preview(name = "wordItem")
 fun WordItemPreview() {
     DicTheme() {
         Column(
@@ -73,72 +64,73 @@ fun WordItemPreview() {
 
 @ExperimentalAnimationApi
 @ExperimentalComposeUiApi
-@Preview(name ="wordScreen")
+@Preview(name = "wordScreen")
 @Composable
 fun WordScreenPreview() {
     DicTheme {
         ConstraintLayout(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Neutral0)
+        ) {
+            Card(
+                shape = RoundedCornerShape(40.dp),
+                backgroundColor = Violet,
+                elevation = 10.dp,
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Neutral0)
+                    .padding(start = 20.dp, end = 20.dp, top = 50.dp, bottom = 80.dp)
             ) {
-                Card(
-                    shape = RoundedCornerShape(40.dp),
-                    backgroundColor = Violet,
-                    elevation = 10.dp,
+
+                Column(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .padding(start = 20.dp, end = 20.dp, top = 50.dp, bottom = 80.dp)
+                        .fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-
-                    Column(
+                    Text(
                         modifier = Modifier
-                            .fillMaxSize(),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
+                            .fillMaxWidth()
+                            .padding(top = 80.dp),
+                        text = stringResource(R.string.app_name),
+                        color = Color.White,
+                        fontFamily = utilFont,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 35.sp,
+                        textAlign = TextAlign.Center
+                    )
+
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 15.dp),
+                        text = stringResource(R.string.title_second_app_name),
+                        color = Color.White,
+                        fontFamily = utilFont,
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 11.sp,
+                        textAlign = TextAlign.Center
+                    )
+
+                    Row(
+                        modifier = Modifier
+                            .padding(15.dp), horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(top = 80.dp),
-                            text = stringResource(R.string.app_name),
-                            color = Color.White,
-                            fontFamily = utilFont,
-                            fontWeight = FontWeight.Normal,
-                            fontSize = 35.sp,
-                            textAlign = TextAlign.Center
-                        )
-
-                        Text(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(top = 15.dp),
-                            text = stringResource(R.string.title_second_app_name),
-                            color = Color.White,
-                            fontFamily = utilFont,
-                            fontWeight = FontWeight.Medium,
-                            fontSize = 11.sp,
-                            textAlign = TextAlign.Center
-                        )
-
-                        Row(
-                            modifier = Modifier
-                                .padding(15.dp), horizontalArrangement = Arrangement.Center,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            SetFlagCard("English", R.drawable.en_flag)
-                            SetFlagCard("Persian", R.drawable.ir_flag)
-                        }
-                        SearchBar(
-                            query = "",
-                            onQueryChange = {
-                                            },
-                            onSearchFocusChange = { },
-                            onClearQuery = {
-                                           },
-                            enableClose = false,
-                        ) }
+                        SetFlagCard("English", R.drawable.en_flag)
+                        SetFlagCard("Persian", R.drawable.ir_flag)
+                    }
+                    SearchBar(
+                        query = "",
+                        onQueryChange = {
+                        },
+                        onSearchFocusChange = { },
+                        onClearQuery = {
+                        },
+                        enableClose = false,
+                    )
                 }
+            }
         }
     }
 }

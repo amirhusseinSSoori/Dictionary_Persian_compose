@@ -1,7 +1,6 @@
 package com.amirhusseinsoori.mvi_persian_dictinary.data.db
 
 import androidx.room.TypeConverter
-import com.google.gson.Gson
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json

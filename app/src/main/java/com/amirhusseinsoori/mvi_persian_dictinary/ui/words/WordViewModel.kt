@@ -4,10 +4,8 @@ import androidx.lifecycle.viewModelScope
 import com.amirhusseinsoori.mvi_persian_dictinary.data.interactor.lastSearch.LastSearchRepository
 import com.amirhusseinsoori.mvi_persian_dictinary.data.interactor.word.WordRepository
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.base.BaseViewModel
-import com.amirhusseinsoori.mvi_persian_dictinary.ui.base.State
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,20 +14,20 @@ import javax.inject.Inject
 class WordViewModel @Inject constructor(
     private val wordRepository: WordRepository,
     private val lastSearchRepository: LastSearchRepository
-) : BaseViewModel<WordEvent,WordState>() {
+) : BaseViewModel<WordEvent, WordState>() {
 
     init {
-      handleEvent(WordEvent.ShowListWord)
+        handleEvent(WordEvent.ShowListWord)
     }
 
-    override fun createInitialState(): WordState  = WordState()
+    override fun createInitialState(): WordState = WordState()
 
     override fun handleEvent(handleEvent: WordEvent) {
         when (handleEvent) {
             is WordEvent.SearchEvent -> {
                 searchWords(handleEvent.word)
             }
-            WordEvent.ShowListWord ->{
+            WordEvent.ShowListWord -> {
                 getListHistory()
             }
             WordEvent.DeleteHistoryItem -> {
@@ -59,8 +57,6 @@ class WordViewModel @Inject constructor(
             }
         }
     }
-
-
 
 
 }

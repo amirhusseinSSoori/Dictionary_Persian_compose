@@ -7,6 +7,6 @@ import com.amirhusseinsoori.mvi_persian_dictinary.ui.base.State
 
 data class DetailsState(
     var definition: EnglishWithDefinition = EnglishWithDefinition(),
-    var persianWord:List<String>? = emptyList(),
+    var persianWord: List<String>? = emptyList(),
     var search: MutableState<String> = mutableStateOf("")
-): State
+) : State

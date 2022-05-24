@@ -23,7 +23,8 @@ import com.amirhusseinsoori.mvi_persian_dictinary.R
 import com.amirhusseinsoori.mvi_persian_dictinary.common.previewString
 import com.amirhusseinsoori.mvi_persian_dictinary.common.utilFont
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.component.DefineTitle
-import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.*
+import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.DicTheme
+import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.Neutral0
 
 
 @Composable
@@ -59,28 +60,28 @@ fun Details() {
                         ) {
                             it.apply {
                                 Column {
-                                        english?.let {
-                                            Text(
-                                                modifier = Modifier
-                                                    .padding(start = 20.dp, top = 15.dp),
-                                                text = it.englishWord,
-                                                fontFamily = utilFont,
-                                                fontWeight = FontWeight.Bold,
-                                                fontSize = 17.sp
-                                            )
-                                        }
-                                        per?.let {
-                                            Text(
-                                                modifier = Modifier
-                                                    .fillMaxWidth()
-                                                    .padding(start = 20.dp, top = 15.dp),
-                                                text = it.previewString(),
-                                                fontFamily = utilFont,
-                                                fontWeight = FontWeight.Bold,
-                                                fontSize = 15.sp
-                                            )
-                                        }
+                                    english?.let {
+                                        Text(
+                                            modifier = Modifier
+                                                .padding(start = 20.dp, top = 15.dp),
+                                            text = it.englishWord,
+                                            fontFamily = utilFont,
+                                            fontWeight = FontWeight.Bold,
+                                            fontSize = 17.sp
+                                        )
                                     }
+                                    per?.let {
+                                        Text(
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .padding(start = 20.dp, top = 15.dp),
+                                            text = it.previewString(),
+                                            fontFamily = utilFont,
+                                            fontWeight = FontWeight.Bold,
+                                            fontSize = 15.sp
+                                        )
+                                    }
+                                }
 
                                 Spacer(modifier = Modifier.padding(top = 25.dp))
                                 DefineTitle(

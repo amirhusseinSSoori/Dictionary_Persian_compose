@@ -6,6 +6,7 @@ import com.amirhusseinsoori.mvi_persian_dictinary.data.db.DictionaryDataBase
 import com.amirhusseinsoori.mvi_persian_dictinary.data.db.dao.LastSearchDao
 import com.amirhusseinsoori.mvi_persian_dictinary.data.db.dao.WordsDao
 import com.amirhusseinsoori.mvi_persian_dictinary.data.interactor.lastSearch.LastSearchRepository
+import com.amirhusseinsoori.mvi_persian_dictinary.data.interactor.lastSearch.LastSearchRepositoryImp
 import com.amirhusseinsoori.mvi_persian_dictinary.data.interactor.word.WordRepository
 import com.amirhusseinsoori.mvi_persian_dictinary.data.interactor.word.WordRepositoryImp
 import com.google.gson.Gson
@@ -14,10 +15,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import com.amirhusseinsoori.mvi_persian_dictinary.data.interactor.lastSearch.LastSearchRepositoryImp
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.SupervisorJob
-import javax.inject.Qualifier
 import javax.inject.Singleton
 
 

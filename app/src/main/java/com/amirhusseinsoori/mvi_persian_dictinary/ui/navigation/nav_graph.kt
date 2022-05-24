@@ -1,30 +1,24 @@
 package com.amirhusseinsoori.mvi_persian_dictinary.ui.navigation
 
-import android.util.Log
-import android.widget.Toast
+
 import androidx.compose.animation.*
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.ExperimentalComposeUiApi
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
-import com.amirhusseinsoori.mvi_persian_dictinary.common.BackHandler
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.details.Details
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.intro.Intro
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.DicTheme
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.words.WordScreen
-
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.gson.Gson
-import kotlinx.coroutines.launch
 
 
 @ExperimentalMaterialApi
@@ -32,9 +26,9 @@ import kotlinx.coroutines.launch
 @ExperimentalFoundationApi
 @ExperimentalAnimationApi
 @Composable
-fun InitialNavGraph(){
+fun InitialNavGraph() {
     val navController: NavHostController = rememberAnimatedNavController()
-    AnimatedNavHost(navController = navController, startDestination = NavRoute.IntroRoute.route){
+    AnimatedNavHost(navController = navController, startDestination = NavRoute.IntroRoute.route) {
         addIntro(navController)
         WordNavigation(navController)
         DetailNavigation()
@@ -45,8 +39,8 @@ fun InitialNavGraph(){
 @ExperimentalAnimationApi
 fun NavGraphBuilder.addIntro(navController: NavController) {
     composable(NavRoute.IntroRoute.route,
-        enterTransition = { initial, _ ->
-            when (initial.destination.route) {
+        enterTransition = {
+            when (initialState.destination.route) {
                 NavRoute.WordRoute.route ->
                     slideInHorizontally(
                         initialOffsetX = { 300 },
@@ -55,8 +49,8 @@ fun NavGraphBuilder.addIntro(navController: NavController) {
                 else -> null
             }
         },
-        exitTransition = { _, target ->
-            when (target.destination.route) {
+        exitTransition = {
+            when (initialState.destination.route) {
                 NavRoute.WordRoute.route ->
                     slideOutHorizontally(
                         targetOffsetX = { 300 },
@@ -65,8 +59,8 @@ fun NavGraphBuilder.addIntro(navController: NavController) {
                 else -> null
             }
         },
-        popEnterTransition = { initial, _ ->
-            when (initial.destination.route) {
+        popEnterTransition = {
+            when (initialState.destination.route) {
                 NavRoute.WordRoute.route ->
                     slideInHorizontally(
                         initialOffsetX = { 300 },
@@ -89,7 +83,7 @@ fun NavGraphBuilder.WordNavigation(
 
     composable(
         route = NavRoute.WordRoute.route,
-        exitTransition = { _, _ ->
+        exitTransition = {
             slideOutHorizontally(
                 targetOffsetX = { 300 },
                 animationSpec = tween(
@@ -98,7 +92,7 @@ fun NavGraphBuilder.WordNavigation(
                 )
             ) + fadeOut(animationSpec = tween(300))
         },
-        popEnterTransition = { initial, _ ->
+        popEnterTransition = {
             slideInHorizontally(
                 initialOffsetX = { 300 },
                 animationSpec = tween(
@@ -108,7 +102,7 @@ fun NavGraphBuilder.WordNavigation(
             ) + fadeIn(animationSpec = tween(300))
         },
     ) {
-        DicTheme{
+        DicTheme {
             WordScreen(navigateToDetailsScreen = {
                 navController.navigate("${NavRoute.DetailsRoute.route}/${Gson().toJson(it)}")
             })
@@ -125,7 +119,7 @@ fun NavGraphBuilder.DetailNavigation(
     composable(
         route = NavRoute.DetailsRoute.route + "/{details}",
         arguments = NavRoute.DetailsRoute.arguments,
-        enterTransition = { _, _ ->
+        enterTransition = {
             slideInHorizontally(
                 initialOffsetX = { -300 },
                 animationSpec = tween(
@@ -134,7 +128,7 @@ fun NavGraphBuilder.DetailNavigation(
                 )
             ) + fadeIn(animationSpec = tween(300))
         },
-        popExitTransition = { _, target ->
+        popExitTransition = {
             slideOutHorizontally(
                 targetOffsetX = { -300 },
                 animationSpec = tween(

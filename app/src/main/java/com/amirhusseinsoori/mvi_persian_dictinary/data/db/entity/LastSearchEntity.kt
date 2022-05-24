@@ -2,12 +2,10 @@ package com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 import java.util.*
-import kotlin.collections.ArrayList
 
 @Parcelize
 @Entity(tableName = "dbo_history_word")

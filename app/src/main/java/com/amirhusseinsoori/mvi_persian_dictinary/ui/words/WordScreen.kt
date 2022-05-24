@@ -12,7 +12,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -43,10 +45,12 @@ import com.amirhusseinsoori.mvi_persian_dictinary.data.db.relations.EnglishWithP
 import com.amirhusseinsoori.mvi_persian_dictinary.data.lastSearchEntityMapToMainModel
 import com.amirhusseinsoori.mvi_persian_dictinary.data.mapToMain
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.SearchBar
-
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.component.DicCard
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.component.SetFlagCard
-import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.*
+import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.DicTheme
+import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.Neutral0
+import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.Violet
+import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.VioletHistory
 
 @ExperimentalMaterialApi
 @ExperimentalComposeUiApi
@@ -123,7 +127,7 @@ fun WordScreen(navigateToDetailsScreen: (id: MainModel) -> Unit) {
                                 value = it
                                 viewModel.handleEvent(WordEvent.SearchEvent(value))
                             },
-                            onSearchFocusChange = { expanded = false},
+                            onSearchFocusChange = { expanded = false },
                             onClearQuery = {
                                 value = ""
                             },
@@ -167,7 +171,6 @@ fun WordScreen(navigateToDetailsScreen: (id: MainModel) -> Unit) {
         }
     }
 }
-
 
 
 @ExperimentalMaterialApi

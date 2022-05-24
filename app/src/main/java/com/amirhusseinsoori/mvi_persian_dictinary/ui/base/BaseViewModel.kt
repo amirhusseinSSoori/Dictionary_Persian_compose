@@ -1,7 +1,6 @@
 package com.amirhusseinsoori.mvi_persian_dictinary.ui.base
 
 import androidx.lifecycle.ViewModel
-import com.amirhusseinsoori.mvi_persian_dictinary.ui.words.WordState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 

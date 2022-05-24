@@ -2,7 +2,6 @@ package com.amirhusseinsoori.mvi_persian_dictinary.data.interactor.word
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import androidx.paging.PagingData
 import com.amirhusseinsoori.mvi_persian_dictinary.data.db.dao.WordsDao
 import com.amirhusseinsoori.mvi_persian_dictinary.data.db.relations.EnglishWithDefinition
 import kotlinx.coroutines.Dispatchers

@@ -13,4 +13,4 @@ data class WordState(
     var paging: Flow<PagingData<EnglishWithPersian>> = emptyFlow(),
     var listHistory: List<LastSearchEntity> = emptyList(),
     var search: MutableState<String> = mutableStateOf("")
-    ): State
+) : State

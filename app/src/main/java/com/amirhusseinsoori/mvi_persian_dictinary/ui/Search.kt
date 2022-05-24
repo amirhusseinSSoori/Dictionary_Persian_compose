@@ -1,42 +1,14 @@
 package com.amirhusseinsoori.mvi_persian_dictinary.ui
 
-/*
- * Copyright 2020 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 
 import android.content.res.Configuration
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -66,19 +38,19 @@ import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.DicTheme
 @ExperimentalComposeUiApi
 @ExperimentalAnimationApi
 @Composable
- fun SearchBar(
-    query: String ,
+fun SearchBar(
+    query: String,
     onQueryChange: (String) -> Unit,
 
     onClearQuery: () -> Unit,
     onSearchFocusChange: (Boolean) -> Unit,
-    enableClose:Boolean,
+    enableClose: Boolean,
     modifier: Modifier = Modifier
 ) {
     var kbClosed: () -> Unit = {}
     val focusManager = LocalFocusManager.current
 
-    var ctx= LocalContext.current
+    var ctx = LocalContext.current
     DicSurface(
         color = DicTheme.colors.uiFloated,
         contentColor = DicTheme.colors.textSecondary,
@@ -99,15 +71,15 @@ import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.DicTheme
                     .wrapContentHeight()
             ) {
 
-                    AnimatedVisibility(visible = enableClose) {
-                        IconButton(onClick = onClearQuery) {
-                            Icon(
-                                imageVector = mirroringCancelIcon(),
-                                tint = DicTheme.colors.iconPrimary,
-                                contentDescription = stringResource(R.string.label_back)
-                            )
-                        }
+                AnimatedVisibility(visible = enableClose) {
+                    IconButton(onClick = onClearQuery) {
+                        Icon(
+                            imageVector = mirroringCancelIcon(),
+                            tint = DicTheme.colors.iconPrimary,
+                            contentDescription = stringResource(R.string.label_back)
+                        )
                     }
+                }
 
                 val keyboardController = LocalSoftwareKeyboardController.current
                 BasicTextField(
@@ -128,7 +100,7 @@ import com.amirhusseinsoori.mvi_persian_dictinary.ui.theme.DicTheme
                             Toast.makeText(ctx, "sdffsd", Toast.LENGTH_SHORT).show()
 //                        onExecuteSearch()
 
-                        keyboardController?.hide()
+                            keyboardController?.hide()
                         },
                     ),
                 )
@@ -150,13 +122,13 @@ private fun SearchHint() {
     ) {
         Icon(
             imageVector = Icons.Outlined.Search,
-            tint = DicTheme .colors.textHelp,
+            tint = DicTheme.colors.textHelp,
             contentDescription = stringResource(R.string.label_search)
         )
         Spacer(Modifier.width(8.dp))
         Text(
             text = stringResource(R.string.search_word),
-            color = DicTheme .colors.textHelp
+            color = DicTheme.colors.textHelp
         )
     }
 }

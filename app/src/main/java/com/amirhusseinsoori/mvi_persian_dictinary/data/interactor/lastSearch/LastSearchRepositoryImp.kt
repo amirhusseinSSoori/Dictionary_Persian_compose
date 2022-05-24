@@ -2,8 +2,6 @@ package com.amirhusseinsoori.mvi_persian_dictinary.data.interactor.lastSearch
 
 import com.amirhusseinsoori.mvi_persian_dictinary.data.db.dao.LastSearchDao
 import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.LastSearchEntity
-import com.amirhusseinsoori.mvi_persian_dictinary.data.interactor.lastSearch.LastSearchRepository
-
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn

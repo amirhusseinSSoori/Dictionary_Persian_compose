@@ -2,11 +2,10 @@ package com.amirhusseinsoori.mvi_persian_dictinary.ui.intro
 
 
 import android.view.animation.OvershootInterpolator
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
-
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -18,11 +17,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
-import com.amirhusseinsoori.mvi_persian_dictinary.common.Loader
 import com.amirhusseinsoori.mvi_persian_dictinary.R
-
-
+import com.amirhusseinsoori.mvi_persian_dictinary.common.Loader
 import com.amirhusseinsoori.mvi_persian_dictinary.common.utilFont
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.navigation.NavRoute
 import kotlinx.coroutines.delay

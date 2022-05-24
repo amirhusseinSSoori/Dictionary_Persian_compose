@@ -3,15 +3,12 @@ package com.amirhusseinsoori.mvi_persian_dictinary.data.db
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.amirhusseinsoori.mvi_persian_dictinary.data.db.dao.LastSearchDao
 import com.amirhusseinsoori.mvi_persian_dictinary.data.db.dao.WordsDao
-import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import javax.inject.Inject
-import javax.inject.Provider
+import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.DefinitionEntity
+import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.EnglishEntity
+import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.LastSearchEntity
+import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.PersianEntity
 
 @Database(
     entities = [EnglishEntity::class, PersianEntity::class,DefinitionEntity::class,LastSearchEntity::class],

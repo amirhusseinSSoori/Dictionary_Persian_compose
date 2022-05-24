@@ -11,7 +11,6 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.sqlite.db.SupportSQLiteCompat.Api16Impl.cancel
 import com.amirhusseinsoori.mvi_persian_dictinary.R
 import com.amirhusseinsoori.mvi_persian_dictinary.common.utilFont
 

@@ -1,7 +1,6 @@
 package com.amirhusseinsoori.mvi_persian_dictinary.ui.details
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.amirhusseinsoori.mvi_persian_dictinary.common.sendArgument
 import com.amirhusseinsoori.mvi_persian_dictinary.data.MainModel
@@ -9,19 +8,18 @@ import com.amirhusseinsoori.mvi_persian_dictinary.data.db.entity.LastSearchEntit
 import com.amirhusseinsoori.mvi_persian_dictinary.data.interactor.lastSearch.LastSearchRepository
 import com.amirhusseinsoori.mvi_persian_dictinary.data.interactor.word.WordRepository
 import com.amirhusseinsoori.mvi_persian_dictinary.ui.base.BaseViewModel
-import com.amirhusseinsoori.mvi_persian_dictinary.ui.base.State
 import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
-    private val wordRepository: WordRepository, savedStateHandle: SavedStateHandle, gson:Gson,
+    private val wordRepository: WordRepository, savedStateHandle: SavedStateHandle, gson: Gson,
     private val lastSearchRepository: LastSearchRepository
-) : BaseViewModel<DetailsEvent,DetailsState>() {
+) : BaseViewModel<DetailsEvent, DetailsState>() {
 
 
     override fun createInitialState(): DetailsState = DetailsState()
@@ -30,16 +28,17 @@ class DetailsViewModel @Inject constructor(
     init {
         gson.fromJson(savedStateHandle.sendArgument("details"), MainModel::class.java).apply {
             handleEvent(DetailsEvent.ShowExampleWord(id))
-            handleEvent(DetailsEvent.InsertToHistory(id=id, listWord = list, english = english))
-            state.value= state.value.copy(persianWord = list)
+            handleEvent(DetailsEvent.InsertToHistory(id = id, listWord = list, english = english))
+            state.value = state.value.copy(persianWord = list)
         }
     }
-     override fun handleEvent(handleEvent: DetailsEvent){
-        when(handleEvent){
+
+    override fun handleEvent(handleEvent: DetailsEvent) {
+        when (handleEvent) {
             is DetailsEvent.ShowExampleWord -> {
                 exampleWords(handleEvent.id)
             }
-            is DetailsEvent.InsertToHistory ->{
+            is DetailsEvent.InsertToHistory -> {
                 insertToHistory(
                     LastSearchEntity(
                         id = handleEvent.id,
@@ -51,7 +50,7 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
-    private fun exampleWords(id:Int) {
+    private fun exampleWords(id: Int) {
         viewModelScope.launch {
             wordRepository.exampleWords(id).catch {
             }.collect {
@@ -59,13 +58,12 @@ class DetailsViewModel @Inject constructor(
             }
         }
     }
+
     private fun insertToHistory(lastSearchHistory: LastSearchEntity) {
         viewModelScope.launch {
             lastSearchRepository.insert(lastSearchHistory)
         }
     }
-
-
 
 
 }
