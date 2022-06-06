@@ -10,3 +10,9 @@ This repository is Persian Dictinary with jetpack compose and use local Datbase 
 + coroutines.
 + Flow.
 + Room.
+
+
+
+<img src="/images/words.png" width="300" >  <img src="/images/search.png" width="300" >
+<img src="/images/example.png" width="300" >
+
