@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "Mvi_Persian_Dictinary"
+rootProject.name = "Persian_Dictionary"
 include ':app'
