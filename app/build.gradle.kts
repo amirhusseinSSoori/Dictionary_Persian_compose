@@ -1,125 +1,128 @@
 plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-    id 'kotlin-parcelize'
-    id 'dagger.hilt.android.plugin'
-    id 'kotlin-kapt'
+    id("com.android.application")
+    id("kotlin-android")
+    id("kotlin-parcelize")
+    id("dagger.hilt.android.plugin")
+    id("kotlin-kapt")
+    id("org.jetbrains.kotlin.plugin.compose")
 
 }
 
 android {
-    compileSdk 34
-    namespace "com.amirhusseinsoori.persian_dictionary"
+    compileSdk = 35
+    namespace = "com.amirhusseinsoori.persian_dictionary"
 
     defaultConfig {
-        applicationId "com.amirhusseinsoori.persian_dictionary"
-        minSdk 23
-        targetSdk 34
-        versionCode 1
-        versionName "1.0"
+        applicationId = "com.amirhusseinsoori.persian_dictionary"
+        minSdk = 23
+        targetSdk = 35
+        versionCode = 1
+        versionName = "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
-            useSupportLibrary true
+            useSupportLibrary = true
         }
     }
 
     buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        getByName("release") {
+            isMinifyEnabled = false
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_17
-        targetCompatibility JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '17'
+        jvmTarget = ("17")
     }
     buildFeatures {
-        compose true
+        compose = true
+        buildConfig = true
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.15"
+        kotlinCompilerExtensionVersion = "1.7.5"
     }
 
 
 
     packagingOptions {
         resources {
-            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+            excludes += listOf("/META-INF/AL2.0", "/META-INF/LGPL2.1")
         }
     }
 
 }
 
 dependencies {
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.com.google.android.material.material2)
+    testImplementation("junit:junit:")
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'com.google.android.material:material:1.12.0'
-    implementation "androidx.compose.ui:ui:$compose_version"
-    implementation "androidx.compose.material:material:$compose_version"
-    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'androidx.activity:activity-compose:1.9.3'
-    implementation "androidx.constraintlayout:constraintlayout-compose:1.1.0"
-    testImplementation 'junit:junit:'
-    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
-    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.constraintlayout.compose)
 
-
-    def coroutines_version = "1.6.1"
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version")
-
-
-    def lifecycle_version = "2.4.1"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.material3)
+    implementation(libs.androidx.material)
+    implementation(libs.androidx.ui.tooling.preview)
+//    implementation(libs.androidx.runtime.livedata)
+    implementation(libs.androidx.material.icons.core)
+    implementation(libs.androidx.material.icons.extended)
 
 
-    implementation "com.google.dagger:hilt-android:$hilt_version"
-    kapt "com.google.dagger:hilt-compiler:$hilt_version"
-    kapt "androidx.hilt:hilt-compiler:1.0.0"
+    implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.android6)
+    implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core6)
 
 
-    def room_version = "2.6.1"
-    implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
-    implementation("androidx.room:room-ktx:$room_version")
-    implementation "androidx.room:room-paging:2.4.2"
-
-    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
 
 
-    def paging_version = "3.1.1"
-    implementation("androidx.paging:paging-runtime-ktx:$paging_version")
-    implementation "androidx.paging:paging-compose:1.0.0-alpha14"
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
+    kapt(libs.androidx.hilt.compiler)
 
 
-    def accompanist_version = "0.20.2"
-    implementation "com.google.accompanist:accompanist-insets:$accompanist_version"
-    implementation "com.google.accompanist:accompanist-systemuicontroller:$accompanist_version"
-    implementation "com.google.accompanist:accompanist-flowlayout:$accompanist_version"
-    implementation "com.google.accompanist:accompanist-navigation-animation:0.23.0"
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler) // Note that annotationProcessor is not used in KTS
+    kapt(libs.androidx.room.room.compiler)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.paging)
+
+    implementation(libs.androidx.hilt.navigation.compose)
 
 
-    implementation("io.coil-kt:coil-compose:1.4.0")
+    implementation(libs.androidx.paging.runtime.ktx)
+    implementation(libs.androidx.paging.compose)
 
-    implementation 'com.google.code.gson:gson:2.11.0'
-    implementation "com.airbnb.android:lottie-compose:5.1.1"
 
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3"
+    implementation(libs.accompanist.insets)
+    implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.accompanist.flowlayout)
+
+
+    implementation(libs.coil.compose)
+
+    implementation(libs.gson)
+    implementation(libs.lottie.compose)
+
+    implementation(libs.kotlinx.serialization.json)
 }
+
 
 
 configurations.all {
     resolutionStrategy {
-        force 'org.xerial:sqlite-jdbc:3.34.0'
+        force("org.xerial:sqlite-jdbc:3.34.0")
     }
 }

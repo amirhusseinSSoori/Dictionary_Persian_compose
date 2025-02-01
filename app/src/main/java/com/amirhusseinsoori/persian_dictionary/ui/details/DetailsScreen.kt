@@ -35,7 +35,7 @@ fun Details() {
         val scroll = rememberScrollState(0)
         var checkNullAble by rememberSaveable { mutableStateOf(true) }
         val viewModel: DetailsViewModel = hiltViewModel()
-        viewModel._state.collectAsState().let { data ->
+        viewModel.state.collectAsState().let { data ->
             val paging = data.value.definition
             val per = data.value.persianWord
             paging.let {

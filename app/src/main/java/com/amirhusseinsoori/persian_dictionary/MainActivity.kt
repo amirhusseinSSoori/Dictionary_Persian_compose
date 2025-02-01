@@ -21,11 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
 
-    @OptIn(
-        ExperimentalComposeUiApi::class,
-        ExperimentalFoundationApi::class,
-        ExperimentalMaterialApi::class
-    )
+    @OptIn(ExperimentalMaterialApi::class, ExperimentalFoundationApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

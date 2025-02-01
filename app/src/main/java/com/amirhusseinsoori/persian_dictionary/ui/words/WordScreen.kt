@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
@@ -61,118 +62,119 @@ import com.amirhusseinsoori.persian_dictionary.ui.theme.VioletHistory
 fun WordScreen(navigateToDetailsScreen: (id: MainModel) -> Unit) {
 
     DicTheme {
+        Button(onClick = {}) { }
         val viewModel: WordViewModel = hiltViewModel()
-        viewModel._state.collectAsState().let { data ->
-            var expanded by remember { mutableStateOf(false) }
-            val paging = data.value.paging.collectAsLazyPagingItems()
-            val listHistory = data.value.listHistory
-            var value by rememberSaveable { mutableStateOf("") }
-            BackHandler(enabled = expanded, onBack = {
-                expanded = false
-            })
-            CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr ) {
-                ConstraintLayout(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Neutral0)
-            ) {
-                Card(
-                    shape = RoundedCornerShape(40.dp),
-                    backgroundColor = Violet,
-                    elevation = 10.dp,
-                    modifier = Modifier
-                        .padding(start = 20.dp, end = 20.dp, top = 50.dp, bottom = 80.dp)
-                ) {
-
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize(),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(top = 80.dp),
-                            text = stringResource(R.string.app_name),
-                            color = Color.White,
-                            fontFamily = utilFont,
-                            fontWeight = FontWeight.Normal,
-                            fontSize = 35.sp,
-                            textAlign = TextAlign.Center
-                        )
-
-                        Text(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(top = 15.dp),
-                            text = stringResource(R.string.title_second_app_name),
-                            color = Color.White,
-                            fontFamily = utilFont,
-                            fontWeight = FontWeight.Medium,
-                            fontSize = 11.sp,
-                            textAlign = TextAlign.Center
-                        )
-
-                        Row(
-                            modifier = Modifier
-                                .padding(15.dp), horizontalArrangement = Arrangement.Center,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-
-                            SetFlagCard("English", R.drawable.en_flag)
-                            SetFlagCard("Persian", R.drawable.ir_flag)
-                        }
-
-                        SearchBar(
-                            query = value,
-                            onQueryChange = {
-                                value = it
-                                viewModel.handleEvent(WordEvent.SearchEvent(value))
-                            },
-                            onSearchFocusChange = { expanded = false },
-                            onClearQuery = {
-                                value = ""
-                            },
-                            enableClose = value != "",
-                        )
-                        LazyColumn(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(20.dp)
-                        ) {
-                            if (value != "") {
-                                items(paging) {
-                                    WordItem(it!!, navigateToDetailsScreen)
-                                }
-                            }
-                        }
-                    }
-                }
-                val fab = createRef()
-                Card(
-                    onClick = { expanded = !expanded },
-                    shape = RoundedCornerShape(40.dp),
-                    backgroundColor = Neutral0,
-                    modifier = Modifier
-                        .padding(20.dp)
-                        .constrainAs(fab) {
-                            bottom.linkTo(parent.bottom)
-                            end.linkTo(parent.end)
-                        }
-                ) {
-                    ContentWithIconAnimation(
-                        expanded = expanded,
-                        list = listHistory,
-                        navigateToDetailsScreen,
-                        deleteHistory = {
-                            viewModel.handleEvent(WordEvent.DeleteHistoryItem)
-                        }
-                    )
-                }
-            }
-            }
-        }
+       viewModel._state.collectAsState().let { data ->
+//            var expanded by remember { mutableStateOf(false) }
+//            val paging = data.value.paging.collectAsLazyPagingItems()
+//            val listHistory = data.value.listHistory
+//            var value by rememberSaveable { mutableStateOf("") }
+//            BackHandler(enabled = expanded, onBack = {
+//                expanded = false
+//            })
+//            CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr ) {
+//                ConstraintLayout(
+//                modifier = Modifier
+//                    .fillMaxSize()
+//                    .background(Neutral0)
+//            ) {
+//                Card(
+//                    shape = RoundedCornerShape(40.dp),
+//                    backgroundColor = Violet,
+//                    elevation = 10.dp,
+//                    modifier = Modifier
+//                        .padding(start = 20.dp, end = 20.dp, top = 50.dp, bottom = 80.dp)
+//                ) {
+//
+//                    Column(
+//                        modifier = Modifier
+//                            .fillMaxSize(),
+//                        verticalArrangement = Arrangement.Center,
+//                        horizontalAlignment = Alignment.CenterHorizontally
+//                    ) {
+//                        Text(
+//                            modifier = Modifier
+//                                .fillMaxWidth()
+//                                .padding(top = 80.dp),
+//                            text = stringResource(R.string.app_name),
+//                            color = Color.White,
+//                            fontFamily = utilFont,
+//                            fontWeight = FontWeight.Normal,
+//                            fontSize = 35.sp,
+//                            textAlign = TextAlign.Center
+//                        )
+//
+//                        Text(
+//                            modifier = Modifier
+//                                .fillMaxWidth()
+//                                .padding(top = 15.dp),
+//                            text = stringResource(R.string.title_second_app_name),
+//                            color = Color.White,
+//                            fontFamily = utilFont,
+//                            fontWeight = FontWeight.Medium,
+//                            fontSize = 11.sp,
+//                            textAlign = TextAlign.Center
+//                        )
+//
+//                        Row(
+//                            modifier = Modifier
+//                                .padding(15.dp), horizontalArrangement = Arrangement.Center,
+//                            verticalAlignment = Alignment.CenterVertically
+//                        ) {
+//
+//                            SetFlagCard("English", R.drawable.en_flag)
+//                            SetFlagCard("Persian", R.drawable.ir_flag)
+//                        }
+//
+//                        SearchBar(
+//                            query = value,
+//                            onQueryChange = {
+//                                value = it
+//                                viewModel.handleEvent(WordEvent.SearchEvent(value))
+//                            },
+//                            onSearchFocusChange = { expanded = false },
+//                            onClearQuery = {
+//                                value = ""
+//                            },
+//                            enableClose = value != "",
+//                        )
+//                        LazyColumn(
+//                            modifier = Modifier
+//                                .fillMaxSize()
+//                                .padding(20.dp)
+//                        ) {
+//                            if (value != "") {
+//                                items(paging) {
+//                                    WordItem(it!!, navigateToDetailsScreen)
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//                val fab = createRef()
+//                Card(
+//                    onClick = { expanded = !expanded },
+//                    shape = RoundedCornerShape(40.dp),
+//                    backgroundColor = Neutral0,
+//                    modifier = Modifier
+//                        .padding(20.dp)
+//                        .constrainAs(fab) {
+//                            bottom.linkTo(parent.bottom)
+//                            end.linkTo(parent.end)
+//                        }
+//                ) {
+//                    ContentWithIconAnimation(
+//                        expanded = expanded,
+//                        list = listHistory,
+//                        navigateToDetailsScreen,
+//                        deleteHistory = {
+//                            viewModel.handleEvent(WordEvent.DeleteHistoryItem)
+//                        }
+//                    )
+//                }
+//            }
+//            }
+       }
     }
 }
 
