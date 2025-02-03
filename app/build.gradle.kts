@@ -2,8 +2,8 @@ plugins {
     id("com.android.application")
     id("kotlin-android")
     id("kotlin-parcelize")
-    id("dagger.hilt.android.plugin")
     id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
     id("org.jetbrains.kotlin.plugin.compose")
 
 }
@@ -43,8 +43,9 @@ android {
         buildConfig = true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.7.5"
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
 
