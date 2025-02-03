@@ -3,6 +3,8 @@ package com.amirhusseinsoori.persian_dictionary.ui.words
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import com.amirhusseinsoori.persian_dictionary.data.db.entity.LastSearchEntity
 import com.amirhusseinsoori.persian_dictionary.data.db.relations.EnglishWithPersian
 import com.amirhusseinsoori.persian_dictionary.data.interactor.lastSearch.LastSearchRepository
 import com.amirhusseinsoori.persian_dictionary.data.interactor.word.WordRepository
@@ -25,8 +27,13 @@ class WordViewModel @Inject constructor(
     init {
         handleEvent(WordEvent.ShowListWord)
     }
-    val state: MutableStateFlow<PagingData<EnglishWithPersian>> = MutableStateFlow(emptyFlow<EnglishWithPersian>())
-    val _state = state.asStateFlow()
+    val _pagingData: MutableStateFlow<PagingData<EnglishWithPersian>> = MutableStateFlow(PagingData.empty())
+    val pagingData = _pagingData.asStateFlow()
+
+    val _lastHistory: MutableStateFlow<List<LastSearchEntity>> = MutableStateFlow(emptyList())
+    val lastHistory = _lastHistory.asStateFlow()
+
+
      fun createInitialState(): WordState = WordState()
 
      fun handleEvent(handleEvent: WordEvent) {
@@ -52,7 +59,10 @@ class WordViewModel @Inject constructor(
 
     private fun searchWords(value: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            state.value = state.value.copy(paging = wordRepository.searchWords(value))
+            wordRepository.searchWords(value).cachedIn(viewModelScope).collect{
+                _pagingData.value =it
+            }
+
         }
 
     }
@@ -60,7 +70,7 @@ class WordViewModel @Inject constructor(
     private fun getListHistory() {
         viewModelScope.launch {
             lastSearchRepository.getAllLastSearchWord().collect {
-                state.value = state.value.copy(listHistory = it)
+                _lastHistory.value =  it
             }
         }
     }
