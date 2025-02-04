@@ -3,6 +3,9 @@ accompanistInsets = "0.20.2"
 accompanistNavigationAnimation = "0.23.0"
 activityCompose = "1.10.0"
 
+kotlin = "2.0.0"
+agp = "8.7.1"
+
 coilCompose = "1.4.0"
 constraintlayoutCompose = "1.1.0"
 coreKtx = "1.15.0"
@@ -10,8 +13,7 @@ appcompat = "1.7.0"
 espressoCore = "3.6.1"
 googleMaterialVersion = "1.12.0"
 gson = "2.11.0"
-hiltAndroid = "2.52"
-hiltCompiler = "2.52"
+hilt = "2.52"
 hiltCompilerVersion = "1.2.0"
 junit = "1.2.1"
 kotlinxSerializationJson = "1.3.2"
@@ -80,9 +82,18 @@ androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 com-google-android-material-material2 = { module = "com.google.android.material:material", version.ref = "googleMaterialVersion" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hiltCompiler" }
-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hiltAndroid" }
+hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
 org-jetbrains-kotlinx-kotlinx-coroutines-core6 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "orgJetbrainsKotlinxKotlinxCoroutinesCore4" }
 org-jetbrains-kotlinx-kotlinx-coroutines-android6 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "orgJetbrainsKotlinxKotlinxCoroutinesAndroid4" }
+
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
