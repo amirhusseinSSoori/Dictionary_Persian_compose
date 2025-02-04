@@ -1,11 +1,10 @@
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
-    id("kotlin-parcelize")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.hilt)
     id("kotlin-kapt")
-    id("com.google.dagger.hilt.android")
-    id("org.jetbrains.kotlin.plugin.compose")
-
 }
 
 android {
@@ -48,8 +47,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-
-
     packagingOptions {
         resources {
             excludes += listOf("/META-INF/AL2.0", "/META-INF/LGPL2.1")
@@ -76,7 +73,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.material)
     implementation(libs.androidx.ui.tooling.preview)
-//    implementation(libs.androidx.runtime.livedata)
+
     implementation(libs.androidx.material.icons.core)
     implementation(libs.androidx.material.icons.extended)
 
