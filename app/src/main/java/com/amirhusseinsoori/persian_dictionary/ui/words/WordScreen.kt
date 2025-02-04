@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
@@ -23,20 +22,18 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.IntSize
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
-
+import com.amirhusseinsoori.mvi_persian_dictinary.ui.words.WordViewModel
 import com.amirhusseinsoori.persian_dictionary.R
 import com.amirhusseinsoori.persian_dictionary.common.persianString
 import com.amirhusseinsoori.persian_dictionary.common.previewString
@@ -60,20 +57,17 @@ import com.amirhusseinsoori.persian_dictionary.ui.theme.VioletHistory
 @ExperimentalAnimationApi
 @Composable
 fun WordScreen(navigateToDetailsScreen: (id: MainModel) -> Unit) {
-
     DicTheme {
-        Button(onClick = {}) { }
         val viewModel: WordViewModel = hiltViewModel()
-       viewModel.pagingData.collectAsLazyPagingItems().let { data ->
+        viewModel._state.collectAsState().let { data ->
             var expanded by remember { mutableStateOf(false) }
-            val paging = data
-//         val listHistory = data.value
+            val paging = data.value.paging.collectAsLazyPagingItems()
+            val listHistory = data.value.listHistory
             var value by rememberSaveable { mutableStateOf("") }
             BackHandler(enabled = expanded, onBack = {
                 expanded = false
             })
-            CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Ltr ) {
-                ConstraintLayout(
+            ConstraintLayout(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(Neutral0)
@@ -143,12 +137,9 @@ fun WordScreen(navigateToDetailsScreen: (id: MainModel) -> Unit) {
                                 .fillMaxSize()
                                 .padding(20.dp)
                         ) {
-                            if (value != "") {
-
-                                items(paging.itemCount) {index ->
-                                    val item = paging[index]
-                                    WordItem(item!!, navigateToDetailsScreen)
-                                }
+                            items(paging.itemCount) {index ->
+                                val item = paging[index]
+                                WordItem(item!!, navigateToDetailsScreen)
                             }
                         }
                     }
@@ -165,21 +156,17 @@ fun WordScreen(navigateToDetailsScreen: (id: MainModel) -> Unit) {
                             end.linkTo(parent.end)
                         }
                 ) {
-                    viewModel.lastHistory.collectAsState().let{listHistory ->
-                        ContentWithIconAnimation(
-                            expanded = expanded,
-                            list = listHistory.value,
-                            navigateToDetailsScreen,
-                            deleteHistory = {
-                                viewModel.handleEvent(WordEvent.DeleteHistoryItem)
-                            }
-                        )
-                    }
-
+                    ContentWithIconAnimation(
+                        expanded = expanded,
+                        list = listHistory,
+                        navigateToDetailsScreen,
+                        deleteHistory = {
+                            viewModel.handleEvent(WordEvent.DeleteHistoryItem)
+                        }
+                    )
                 }
             }
-            }
-       }
+        }
     }
 }
 

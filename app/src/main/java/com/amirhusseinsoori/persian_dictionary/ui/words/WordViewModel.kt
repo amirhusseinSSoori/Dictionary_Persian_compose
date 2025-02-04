@@ -1,19 +1,14 @@
-package com.amirhusseinsoori.persian_dictionary.ui.words
+package com.amirhusseinsoori.mvi_persian_dictinary.ui.words
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
-import com.amirhusseinsoori.persian_dictionary.data.db.entity.LastSearchEntity
-import com.amirhusseinsoori.persian_dictionary.data.db.relations.EnglishWithPersian
 import com.amirhusseinsoori.persian_dictionary.data.interactor.lastSearch.LastSearchRepository
 import com.amirhusseinsoori.persian_dictionary.data.interactor.word.WordRepository
 import com.amirhusseinsoori.persian_dictionary.ui.base.BaseViewModel
+import com.amirhusseinsoori.persian_dictionary.ui.words.WordEvent
+import com.amirhusseinsoori.persian_dictionary.ui.words.WordState
+
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.emptyFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,21 +17,15 @@ import javax.inject.Inject
 class WordViewModel @Inject constructor(
     private val wordRepository: WordRepository,
     private val lastSearchRepository: LastSearchRepository
-) : ViewModel() {
+) : BaseViewModel<WordEvent, WordState>() {
 
     init {
         handleEvent(WordEvent.ShowListWord)
     }
-    val _pagingData: MutableStateFlow<PagingData<EnglishWithPersian>> = MutableStateFlow(PagingData.empty())
-    val pagingData = _pagingData.asStateFlow()
 
-    val _lastHistory: MutableStateFlow<List<LastSearchEntity>> = MutableStateFlow(emptyList())
-    val lastHistory = _lastHistory.asStateFlow()
+    override fun createInitialState(): WordState = WordState()
 
-
-     fun createInitialState(): WordState = WordState()
-
-     fun handleEvent(handleEvent: WordEvent) {
+    override fun handleEvent(handleEvent: WordEvent) {
         when (handleEvent) {
             is WordEvent.SearchEvent -> {
                 searchWords(handleEvent.word)
@@ -59,10 +48,7 @@ class WordViewModel @Inject constructor(
 
     private fun searchWords(value: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            wordRepository.searchWords(value).cachedIn(viewModelScope).collect{
-                _pagingData.value =it
-            }
-
+            state.value = state.value.copy(paging = wordRepository.searchWords(value))
         }
 
     }
@@ -70,7 +56,7 @@ class WordViewModel @Inject constructor(
     private fun getListHistory() {
         viewModelScope.launch {
             lastSearchRepository.getAllLastSearchWord().collect {
-                _lastHistory.value =  it
+                state.value = state.value.copy(listHistory = it)
             }
         }
     }
