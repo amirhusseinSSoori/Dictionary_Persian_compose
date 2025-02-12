@@ -1,9 +1,7 @@
 package com.amirhusseinsoori.persian_dictionary.ui
 
 import android.content.res.Configuration
-import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
@@ -16,11 +14,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -34,22 +29,16 @@ import com.amirhusseinsoori.persian_dictionary.ui.component.DicSurface
 import com.amirhusseinsoori.persian_dictionary.ui.theme.DicTheme
 
 
-@ExperimentalComposeUiApi
-@ExperimentalAnimationApi
+
 @Composable
 fun SearchBar(
     query: String,
     onQueryChange: (String) -> Unit,
-
     onClearQuery: () -> Unit,
     onSearchFocusChange: (Boolean) -> Unit,
     enableClose: Boolean,
     modifier: Modifier = Modifier
 ) {
-    var kbClosed: () -> Unit = {}
-    val focusManager = LocalFocusManager.current
-
-    var ctx = LocalContext.current
     DicSurface(
         color = DicTheme.colors.uiFloated,
         contentColor = DicTheme.colors.textSecondary,
@@ -95,11 +84,7 @@ fun SearchBar(
                         imeAction = ImeAction.Done,
                     ),
                     keyboardActions = KeyboardActions(
-                        onDone = {
-                            Toast.makeText(ctx, "sdffsd", Toast.LENGTH_SHORT).show()
-//                        onExecuteSearch()
-
-                            keyboardController?.hide()
+                        onDone = { keyboardController?.hide()
                         },
                     ),
                 )
@@ -109,7 +94,6 @@ fun SearchBar(
     }
 }
 
-private val IconSize = 48.dp
 
 @Composable
 private fun SearchHint() {
@@ -132,8 +116,7 @@ private fun SearchHint() {
     }
 }
 
-@ExperimentalComposeUiApi
-@ExperimentalAnimationApi
+
 @Preview("default")
 @Preview("dark theme", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Preview("large font", fontScale = 2f)
@@ -142,7 +125,7 @@ private fun SearchBarPreview() {
     DicTheme {
         DicSurface {
             SearchBar(
-                query = "",
+                query = "hello",
                 onQueryChange = { },
                 onSearchFocusChange = { },
                 onClearQuery = { },

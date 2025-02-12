@@ -18,7 +18,6 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
@@ -52,9 +51,8 @@ import com.amirhusseinsoori.persian_dictionary.ui.theme.Neutral0
 import com.amirhusseinsoori.persian_dictionary.ui.theme.Violet
 import com.amirhusseinsoori.persian_dictionary.ui.theme.VioletHistory
 
-@ExperimentalMaterialApi
-@ExperimentalComposeUiApi
-@ExperimentalAnimationApi
+
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun WordScreen(navigateToDetailsScreen: (id: MainModel) -> Unit) {
     DicTheme {
@@ -171,14 +169,13 @@ fun WordScreen(navigateToDetailsScreen: (id: MainModel) -> Unit) {
                             viewModel.handleEvent(WordEvent.DeleteHistoryItem)
                         }
                     )
-                2
             }
         }
     }
 }
 
 
-@ExperimentalMaterialApi
+
 @Composable
 fun WordItem(
     data: EnglishWithPersian,
@@ -224,8 +221,8 @@ fun WordItem(
 }
 
 
-@ExperimentalMaterialApi
-@ExperimentalAnimationApi
+
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun ContentWithIconAnimation(
     expanded: Boolean,
@@ -318,7 +315,7 @@ fun ContentWithIconAnimation(
     }
 }
 
-@ExperimentalMaterialApi
+
 @Composable
 fun HistoryItem(data: LastSearchEntity, navigateToDetailsWithHistory: (id: MainModel) -> Unit) {
     DicCard {
