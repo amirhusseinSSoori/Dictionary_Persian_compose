@@ -4,7 +4,7 @@ accompanistNavigationAnimation = "0.23.0"
 activityCompose = "1.10.0"
 
 kotlin = "2.0.0"
-agp = "8.7.1"
+agp = "8.7.3"
 
 coilCompose = "1.4.0"
 constraintlayoutCompose = "1.1.0"
@@ -12,16 +12,14 @@ coreKtx = "1.15.0"
 appcompat = "1.7.0"
 espressoCore = "3.6.1"
 googleMaterialVersion = "1.12.0"
-gson = "2.11.0"
-hilt = "2.52"
+gson = "2.12.1"
+hilt = "2.55"
 hiltCompilerVersion = "1.2.0"
 junit = "1.2.1"
-kotlinxSerializationJson = "1.3.2"
 lifecycleViewmodelKtx = "2.8.7"
 lifecycleRuntimeKtx = "2.8.7"
 lottieCompose = "5.1.1"
-orgJetbrainsKotlinxKotlinxCoroutinesAndroid4 = "1.9.0"
-orgJetbrainsKotlinxKotlinxCoroutinesCore4 = "1.9.0"
+coroutines = "1.9.0"
 pagingRuntimeKtx = "3.3.5"
 pagingCompose = "3.3.5"
 roomPaging = "2.6.1"
@@ -58,11 +56,6 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 
 
-
-
-
-
-
 androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraintlayoutCompose" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hiltCompilerVersion" }
@@ -75,7 +68,6 @@ androidx-paging-compose = { module = "androidx.paging:paging-compose", version.r
 androidx-paging-runtime-ktx = { module = "androidx.paging:paging-runtime-ktx", version.ref = "pagingRuntimeKtx" }
 androidx-room-paging = { module = "androidx.room:room-paging", version.ref = "roomPaging" }
 androidx-room-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
-androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 
@@ -84,10 +76,9 @@ com-google-android-material-material2 = { module = "com.google.android.material:
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
-kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
-org-jetbrains-kotlinx-kotlinx-coroutines-core6 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "orgJetbrainsKotlinxKotlinxCoroutinesCore4" }
-org-jetbrains-kotlinx-kotlinx-coroutines-android6 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "orgJetbrainsKotlinxKotlinxCoroutinesAndroid4" }
+org-jetbrains-kotlinx-kotlinx-coroutines-core6 = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 
 
 [plugins]

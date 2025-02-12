@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.hilt)
@@ -78,7 +77,7 @@ dependencies {
     implementation(libs.androidx.material.icons.extended)
 
 
-    implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.android6)
+    implementation(libs.coroutines.android)
     implementation(libs.org.jetbrains.kotlinx.kotlinx.coroutines.core6)
 
 
@@ -92,7 +91,6 @@ dependencies {
 
 
     implementation(libs.androidx.room.runtime)
-    annotationProcessor(libs.androidx.room.compiler) // Note that annotationProcessor is not used in KTS
     kapt(libs.androidx.room.room.compiler)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.paging)
@@ -114,7 +112,6 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.lottie.compose)
 
-    implementation(libs.kotlinx.serialization.json)
 }
 
 

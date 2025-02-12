@@ -1,15 +1,18 @@
 package com.amirhusseinsoori.persian_dictionary.data.db
 
 import androidx.room.TypeConverter
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+
 
 class Converters {
 
     @TypeConverter
-    fun fromList(value : List<String>) = Json.encodeToString(value)
+    fun fromList(value : List<String>) = Gson().toJson(value)
 
     @TypeConverter
-    fun toList(value: String) = Json.decodeFromString<List<String>>(value)
+    fun toList(value: String): List<String> {
+        val type = object : TypeToken<List<String>>() {}.type
+        return Gson().fromJson(value, type)
+    }
 }
