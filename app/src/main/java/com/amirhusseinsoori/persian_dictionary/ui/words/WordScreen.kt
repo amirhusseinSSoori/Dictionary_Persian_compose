@@ -59,10 +59,15 @@ import com.amirhusseinsoori.persian_dictionary.ui.theme.VioletHistory
 fun WordScreen(navigateToDetailsScreen: (id: MainModel) -> Unit) {
     DicTheme {
         val viewModel: WordViewModel = hiltViewModel()
-        viewModel._state.collectAsState().let { data ->
+
+            val data =  viewModel._state.collectAsState()
+
             var expanded by remember { mutableStateOf(false) }
-            val paging = data.value.paging.collectAsLazyPagingItems()
+
+            val allWords = viewModel.allWords.collectAsLazyPagingItems()
+
             val listHistory = data.value.listHistory
+
             var value by rememberSaveable { mutableStateOf("") }
             BackHandler(enabled = expanded, onBack = {
                 expanded = false
@@ -137,9 +142,11 @@ fun WordScreen(navigateToDetailsScreen: (id: MainModel) -> Unit) {
                                 .fillMaxSize()
                                 .padding(20.dp)
                         ) {
-                            items(paging.itemCount) {index ->
-                                val item = paging[index]
-                                WordItem(item!!, navigateToDetailsScreen)
+                            items(allWords.itemSnapshotList) { item ->
+                                if (value.isNotEmpty()) {
+                                    WordItem(item!!, navigateToDetailsScreen)
+                                }
+
                             }
                         }
                     }
@@ -164,7 +171,7 @@ fun WordScreen(navigateToDetailsScreen: (id: MainModel) -> Unit) {
                             viewModel.handleEvent(WordEvent.DeleteHistoryItem)
                         }
                     )
-                }
+                2
             }
         }
     }

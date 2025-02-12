@@ -1,14 +1,18 @@
 package com.amirhusseinsoori.mvi_persian_dictinary.ui.words
 
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import com.amirhusseinsoori.persian_dictionary.data.db.relations.EnglishWithPersian
 import com.amirhusseinsoori.persian_dictionary.data.interactor.lastSearch.LastSearchRepository
 import com.amirhusseinsoori.persian_dictionary.data.interactor.word.WordRepository
 import com.amirhusseinsoori.persian_dictionary.ui.base.BaseViewModel
 import com.amirhusseinsoori.persian_dictionary.ui.words.WordEvent
 import com.amirhusseinsoori.persian_dictionary.ui.words.WordState
-
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,9 +34,11 @@ class WordViewModel @Inject constructor(
             is WordEvent.SearchEvent -> {
                 searchWords(handleEvent.word)
             }
+
             WordEvent.ShowListWord -> {
                 getListHistory()
             }
+
             WordEvent.DeleteHistoryItem -> {
                 deleteHistory()
             }
@@ -46,9 +52,16 @@ class WordViewModel @Inject constructor(
         }
     }
 
+    private val _allWords: MutableStateFlow<PagingData<EnglishWithPersian>> =
+        MutableStateFlow(PagingData.empty())
+    val allWords = _allWords.asStateFlow()
+
     private fun searchWords(value: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            state.value = state.value.copy(paging = wordRepository.searchWords(value))
+            wordRepository.searchWords(value).cachedIn(viewModelScope).collect {
+                _allWords.value = it
+            }
+
         }
 
     }
