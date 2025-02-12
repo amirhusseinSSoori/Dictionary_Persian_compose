@@ -6,7 +6,6 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
-@Parcelize
 @Entity(tableName = "DefinitionExamples")
 data class DefinitionEntity(
     @PrimaryKey(autoGenerate = false)
@@ -16,4 +15,4 @@ data class DefinitionEntity(
     var idKindWord: Int,
     var definition: String,
     var example: String
-) : Parcelable
+)
