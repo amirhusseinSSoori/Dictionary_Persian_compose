@@ -140,7 +140,9 @@ fun WordScreen(navigateToDetailsScreen: (id: MainModel) -> Unit) {
                                 .fillMaxSize()
                                 .padding(20.dp)
                         ) {
-                            items(allWords.itemSnapshotList) { item ->
+                            items(allWords.itemSnapshotList, key = {
+                                it?.english?.englishWord!!
+                            }) { item ->
                                 if (value.isNotEmpty()) {
                                     WordItem(item!!, navigateToDetailsScreen)
                                 }
